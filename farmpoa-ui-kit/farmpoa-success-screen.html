@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmpoa - Vaccination Recorded!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #fce7f3 50%, #f0fdf4 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                max-width: 420px;
+            }
+        }
+
+        /* Confetti Container */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+
+        .confetti.animate {
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(-100px) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        /* Success Icon */
+        .success-icon-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        .success-circle {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.4),
+                        0 0 0 8px rgba(76, 175, 80, 0.1);
+            animation: circlePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        @keyframes circlePop {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .checkmark {
+            width: 60px;
+            height: 60px;
+            stroke: white;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        .checkmark path {
+            stroke-dasharray: 80;
+            stroke-dashoffset: 80;
+            animation: drawCheck 0.5s ease-out 0.4s forwards;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .checkmark circle {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: drawCircle 0.4s ease-out 0.2s forwards;
+        }
+
+        @keyframes drawCircle {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Ripple effect */
+        .ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid rgba(76, 175, 80, 0.4);
+            animation: ripple 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        .ripple:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes ripple {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2);
+            }
+        }
+
+        /* Particle burst */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: particleBurst 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes particleBurst {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(1);
+            }
+        }
+
+        /* Title */
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2d5a3d;
+            margin-bottom: 8px;
+            animation: fadeSlideUp 0.5s ease-out 0.3s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #5a7d5a;
+            margin-bottom: 32px;
+            line-height: 1.5;
+            animation: fadeSlideUp 0.5s ease-out 0.4s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08),
+                        0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+            animation: fadeSlideUp 0.5s ease-out 0.5s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            text-align: left;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #F48FB1 0%, #f9a8d4 100%);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(244, 143, 177, 0.3);
+        }
+
+        .card-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .card-title {
+            font-size: 14px;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-animal {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #4CAF50;
+        }
+
+        .info-value.highlight {
+            color: #F48FB1;
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            animation: fadeSlideUp 0.5s ease-out 0.6s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50 0%, #5CBF60 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(76, 175, 80, 0.35);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.45);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.35);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4CAF50;
+            border: 2px solid #e0e0e0;
+            padding: 14px 32px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #4CAF50;
+            background: #f8fff8;
+        }
+
+        .btn-secondary:active {
+            background: #f0f0f0;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 32px;
+            animation: fadeSlideUp 0.5s ease-out 0.7s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .footer-text {
+            font-size: 15px;
+            color: #6a9a6a;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .leaf {
+            display: inline-block;
+            animation: leafBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes leafBounce {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-3px) rotate(5deg);
+            }
+        }
+
+        /* Glow effect behind checkmark */
+        .glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.3;
+            }
+        }
+
+        /* Sparkles around success icon */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .sparkle:nth-child(1) { top: 10px; left: 20px; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 5px; right: 25px; animation-delay: 0.3s; }
+        .sparkle:nth-child(3) { bottom: 15px; left: 10px; animation-delay: 0.6s; }
+        .sparkle:nth-child(4) { bottom: 10px; right: 15px; animation-delay: 0.9s; }
+
+        @keyframes sparkle {
+            0%, 100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Cow icon in card */
+        .cow-icon {
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <div class="container">
+        <!-- Success Icon -->
+        <div class="success-icon-wrapper">
+            <div class="glow"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="success-circle">
+                <svg class="checkmark" viewBox="0 0 52 52">
+                    <circle cx="26" cy="26" r="24" fill="none" stroke="white" stroke-width="3"/>
+                    <path d="M14 27 L22 35 L38 19" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+            </div>
+            <div class="ripple"></div>
+            <div class="ripple"></div>
+        </div>
+
+        <!-- Title & Subtitle -->
+        <h1 class="title">Vaccination Recorded!</h1>
+        <p class="subtitle">Maziwa is now protected against<br>Foot & Mouth Disease</p>
+
+        <!-- Summary Card -->
+        <div class="summary-card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                        <path d="M8 12s1-2 4-2 4 2 4 2"/>
+                        <circle cx="9" cy="10" r="1" fill="white"/>
+                        <circle cx="15" cy="10" r="1" fill="white"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="card-title">Vaccination Record</div>
+                    <div class="card-animal">Maziwa - Cow</div>
+                </div>
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Date</div>
+                    <div class="info-value">Apr 24, 2026</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Vaccine</div>
+                    <div class="info-value highlight">FMD Vaccine</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Next Due</div>
+                    <div class="info-value">Oct 24, 2026</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button class="btn-primary" onclick="handleDone()">Done</button>
+            <button class="btn-secondary" onclick="handleAddAnother()">Add Another Record</button>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p class="footer-text">
+                Great job keeping your farm healthy!
+                <span class="leaf">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2">
+                        <path d="M12 22V8"/>
+                        <path d="M5 12s2.5-5 7-5 7 5 7 5"/>
+                        <path d="M5 12s2.5 5 7 5 7-5 7-5"/>
+                    </svg>
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Confetti colors matching the theme
+        const confettiColors = [
+            '#4CAF50', // Green
+            '#66BB6A', // Light green
+            '#F48FB1', // Pink
+            '#f9a8d4', // Light pink
+            '#81C784', // Sage green
+            '#FFD54F'  // Gold accent
+        ];
+
+        // Create subtle confetti burst
+        function createConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const confettiCount = 40;
+
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                    confetti.style.width = (Math.random() * 8 + 6) + 'px';
+                    confetti.style.height = (Math.random() * 8 + 6) + 'px';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = '0s';
+
+                    container.appendChild(confetti);
+
+                    // Trigger animation
+                    requestAnimationFrame(() => {
+                        confetti.classList.add('animate');
+                    });
+
+                    // Remove after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 4000);
+                }, Math.random() * 500);
+            }
+        }
+
+        // Particle burst on page load
+        function createParticleBurst() {
+            const wrapper = document.querySelector('.success-icon-wrapper');
+            const particles = 12;
+
+            for (let i = 0; i < particles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const angle = (i / particles) * 360;
+                const distance = 80 + Math.random() * 40;
+                const tx = Math.cos(angle * Math.PI / 180) * distance + 'px';
+                const ty = Math.sin(angle * Math.PI / 180) * distance + 'px';
+                particle.style.setProperty('--tx', tx);
+                particle.style.setProperty('--ty', ty);
+                particle.style.background = i % 2 === 0 ? '#4CAF50' : '#F48FB1';
+                particle.style.left = '50%';
+                particle.style.top = '50%';
+                particle.style.animationDelay = (0.4 + Math.random() * 0.2) + 's';
+                wrapper.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 1200);
+            }
+        }
+
+        // Button handlers
+        function handleDone() {
+            const btn = document.querySelector('.btn-primary');
+            btn.textContent = '✓ Returning...';
+            btn.style.transform = 'scale(0.98)';
+
+            setTimeout(() => {
+                // Simulate navigation
+                btn.innerHTML = '<span style="display:inline-block;animation:spin 1s linear infinite;">↻</span> Loading...';
+                btn.style.transform = '';
+
+                // In real app, this would navigate to dashboard
+                setTimeout(() => {
+                    btn.textContent = 'Done';
+                    alert('In a real app, this would return to the dashboard!');
+                }, 800);
+            }, 300);
+        }
+
+        function handleAddAnother() {
+            const btn = document.querySelector('.btn-secondary');
+            btn.style.background = '#f0fff0';
+            btn.style.borderColor = '#4CAF50';
+
+            setTimeout(() => {
+                btn.style.background = 'white';
+                btn.style.borderColor = '#e0e0e0';
+                alert('In a real app, this would open a new record form!');
+            }, 200);
+        }
+
+        // Add spin animation for loading
+        const style = document.createElement('style');
+        style.textContent = `@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`;
+        document.head.appendChild(style);
+
+        // Initialize
+        window.addEventListener('load', () => {
+            setTimeout(createParticleBurst, 400);
+            setTimeout(createConfetti, 600);
+        });
+    </script>
+</body>
+</html>

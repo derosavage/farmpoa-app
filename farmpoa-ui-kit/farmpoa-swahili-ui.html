@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Farmpoa - Usimamizi wa Mifugo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #4CAF50;
+            --primary-green-dark: #388E3C;
+            --primary-green-light: #81C784;
+            --guava-pink: #E91E63;
+            --guava-coral: #FF7043;
+            --guava-gradient: linear-gradient(135deg, #E91E63 0%, #FF7043 100%);
+            --green-guava-gradient: linear-gradient(135deg, #4CAF50 0%, #66BB6A 50%, #FF7043 100%);
+            --bg-light: #F5F9F5;
+            --bg-white: #FFFFFF;
+            --text-dark: #2D3A2D;
+            --text-medium: #5A6B5A;
+            --text-light: #8A9A8A;
+            --shadow-sm: 0 2px 8px rgba(76, 175, 80, 0.12);
+            --shadow-md: 0 4px 16px rgba(76, 175, 80, 0.15);
+            --shadow-lg: 0 8px 32px rgba(76, 175, 80, 0.2);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 50%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            width: 100%;
+            padding-bottom: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Responsive Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 0 24px 100px;
+            }
+            .container {
+                padding: 0 32px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            body {
+                padding: 0 48px 120px;
+            }
+            .container {
+                padding: 0 48px;
+            }
+        }
+
+        /* Header */
+        .header {
+            background: var(--green-guava-gradient);
+            padding: 20px 24px 60px;
+            border-radius: 0 0 32px 32px;
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .logo-text {
+            color: var(--bg-white);
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .notification-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .notification-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .notification-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--bg-white);
+        }
+
+        .welcome-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .welcome-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .welcome-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #E8F5E9 0%, #FFF3E0 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .welcome-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .welcome-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .welcome-text p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 12px 8px;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+        }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: 800;
+            background: var(--guava-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-medium);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .dashboard-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+            text-align: left;
+            width: 100%;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .dashboard-card:active {
+            transform: scale(0.98);
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+        }
+
+        .card-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .card-icon.wanyama {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+        }
+
+        .card-icon.wanyama svg {
+            fill: var(--primary-green);
+        }
+
+        .card-icon.chanjo {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+        }
+
+        .card-icon.chanjo svg {
+            fill: #FF9800;
+        }
+
+        .card-icon.daktari {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        }
+
+        .card-icon.daktari svg {
+            fill: #2196F3;
+        }
+
+        .card-icon.ripoti {
+            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD9 100%);
+        }
+
+        .card-icon.ripoti svg {
+            fill: var(--guava-pink);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Full Width Card */
+        .full-card {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--green-guava-gradient);
+            color: var(--bg-white);
+            padding: 24px;
+        }
+
+        .full-card .card-icon {
+            background: rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+
+        .full-card .card-icon svg {
+            fill: var(--bg-white);
+        }
+
+        .full-card .card-content {
+            flex: 1;
+        }
+
+        .full-card .card-title {
+            color: var(--bg-white);
+            font-size: 17px;
+        }
+
+        .full-card .card-subtitle {
+            color: rgba(255,255,255,0.85);
+            font-size: 13px;
+        }
+
+        /* Health Status Section */
+        .health-section {
+            margin-bottom: 24px;
+        }
+
+        .health-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .health-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .health-indicator {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .health-indicator.wagonjwa {
+            background: #FFEBEE;
+        }
+
+        .health-indicator.wagonjwa svg {
+            fill: #E53935;
+        }
+
+        .health-indicator.salama {
+            background: #E8F5E9;
+        }
+
+        .health-indicator.salama svg {
+            fill: var(--primary-green);
+        }
+
+        .health-info h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .health-info p {
+            font-size: 20px;
+            font-weight: 800;
+            margin-top: 2px;
+        }
+
+        .health-info p.wagonjwa-count {
+            color: #E53935;
+        }
+
+        .health-info p.salama-count {
+            color: var(--primary-green);
+        }
+
+        /* Veterinarian Card */
+        .vet-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 24px;
+        }
+
+        .vet-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .vet-avatar {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vet-avatar svg {
+            width: 30px;
+            height: 30px;
+            fill: #2196F3;
+        }
+
+        .vet-info h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .vet-info p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        .vet-stars {
+            display: flex;
+            gap: 2px;
+            margin-top: 4px;
+        }
+
+        .vet-stars svg {
+            width: 14px;
+            height: 14px;
+            fill: #FFC107;
+        }
+
+        .vet-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .vet-btn {
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+
+        .vet-btn:active {
+            transform: scale(0.96);
+        }
+
+        .vet-btn.call {
+            background: var(--primary-green);
+            color: var(--bg-white);
+        }
+
+        .vet-btn.call svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--bg-white);
+        }
+
+        .vet-btn.message {
+            background: #E3F2FD;
+            color: #2196F3;
+        }
+
+        .vet-btn.message svg {
+            width: 18px;
+            height: 18px;
+            fill: #2196F3;
+        }
+
+        /* Contact Info */
+        .contact-bar {
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-bar svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary-green);
+        }
+
+        .contact-bar span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            background: var(--bg-white);
+            padding: 12px 16px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+            border-radius: 24px 24px 0 0;
+            z-index: 100;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: background 0.2s;
+            min-width: 64px;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-light);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--text-light);
+            transition: fill 0.2s;
+        }
+
+        .nav-item.active svg {
+            fill: var(--primary-green);
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+
+        .nav-item.active span {
+            color: var(--primary-green);
+        }
+
+        /* FAB Button */
+        .fab-container {
+            position: relative;
+        }
+
+        .fab {
+            width: 56px;
+            height: 56px;
+            background: var(--guava-gradient);
+            border: none;
+            border-radius: var(--radius-full);
+            box-shadow: 0 4px 16px rgba(233, 30, 99, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -28px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .fab:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 24px rgba(233, 30, 99, 0.5);
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+        .fab svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--bg-white);
+        }
+
+        /* Action Menu */
+        .action-menu {
+            position: absolute;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            padding: 8px;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 101;
+            min-width: 200px;
+        }
+
+        .action-menu.show {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            width: 100%;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: background 0.2s;
+        }
+
+        .action-item:hover {
+            background: var(--bg-light);
+        }
+
+        .action-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--primary-green);
+        }
+
+        /* Page Sections (Hidden by default, shown when active) */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Empty State Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            fill: var(--primary-green-light);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 16px 0 8px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* List Items */
+        .list-item {
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .list-item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .list-item-content {
+            flex: 1;
+        }
+
+        .list-item-content h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .list-item-content p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        .list-item-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .badge-healthy {
+            background: #E8F5E9;
+            color: var(--primary-green);
+        }
+
+        .badge-sick {
+            background: #FFEBEE;
+            color: #E53935;
+        }
+
+        .badge-pending {
+            background: #FFF3E0;
+            color: #FF9800;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm2 15h-4v-1h4v1zm0-2h-4v-1h4v1zm-1.5-3.5V13h-1v-1.5c-1.75-.85-3-2.63-3-4.5 0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.87-1.25 3.65-3 4.5z" fill="#4CAF50"/>
+                        <path d="M9 20.5L7 22h10l-2-1.5-1.5 1.5L12 23l-1.5-2L9 20.5z" fill="#66BB6A"/>
+                    </svg>
+                </div>
+                <span class="logo-text">Farmpoa</span>
+            </div>
+            <button class="notification-btn" aria-label="Arifa">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+            <div class="welcome-header">
+                <div class="welcome-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#4CAF50"/>
+                        <path d="M19 8h-1V6c0-2.76-2.24-5-5-5S8 3.24 8 6v2H7c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z" fill="#66BB6A"/>
+                    </svg>
+                </div>
+                <div class="welcome-text">
+                    <h1>Jambo, Bwana Juma!</h1>
+                    <p>Tumainika leo? Mifugo yako ina afya nzuri.</p>
+                </div>
+            </div>
+            <div class="quick-stats">
+                <div class="stat-item">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Wanyama</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Chanjo</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">98%</div>
+                    <div class="stat-label">Afya</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section class="page-section active" id="dashboard">
+            <h2 class="section-title">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" fill="#4CAF50"/>
+                </svg>
+                Dashibodi
+            </h2>
+
+            <div class="dashboard-grid">
+                <!-- Wanyama Card -->
+                <button class="dashboard-card" onclick="showSection('wanyama')">
+                    <div class="card-icon wanyama">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4.5 12c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5zm9 0c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                        </svg>
+                    </div>
+                    <div class="card-title">Mifugo</div>
+                    <div class="card-subtitle">Simamia wanyama wako</div>
+                </button>
+
+                <!-- Chanjo Card -->
+                <button class="dashboard-card" onclick="showSection('chanjo')">
+                    <div class="card-icon chanjo">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+                        </svg>
+                    </div>
+                    <div class="card-title">Chanjo</div>
+                    <div class="card-subtitle">Sajili chanjo mpya</div>
+                </button>
+
+                <!-- Daktari Card -->
+                <button class="dashboard-card" onclick="showSection('daktari')">
+                    <div class="card-icon daktari">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/>
+                        </svg>
+                    </div>
+                    <div class="card-title">Daktari wa Mifugo</div>
+                    <div class="card-subtitle">Wasiliana na daktari</div>
+                </button>
+
+                <!-- Ripoti Card -->
+                <button class="dashboard-card" onclick="showSection('ripoti')">
+                    <div class="card-icon ripoti">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    <div class="card-title">Ripoti</div>
+                    <div class="card-subtitle">Tazama takwimu</div>
+                </button>
+
+                <!-- Ongeza Wanyama Full Card -->
+                <button class="dashboard-card full-card" onclick="toggleActionMenu()">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Ongeza Wanyama Mpya</div>
+                        <div class="card-subtitle">Bonyeza hapa kurekodi mnyama mpya</div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Health Status -->
+            <div class="health-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#E53935"/>
+                    </svg>
+                    Hali ya Afya
+                </h2>
+
+                <div class="health-cards">
+                    <div class="health-card">
+                        <div class="health-indicator wagonjwa">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+                            </svg>
+                        </div>
+                        <div class="health-info">
+                            <h3>Wagonjwa</h3>
+                            <p class="wagonjwa-count">2</p>
+                        </div>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="health-indicator salama">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <div class="health-info">
+                            <h3>Salama</h3>
+                            <p class="salama-count">22</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Veterinarian Card -->
+            <div class="vet-card">
+                <div class="vet-header">
+                    <div class="vet-avatar">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="vet-info">
+                        <h3>Dkt. Amina Rashid</h3>
+                        <p>Daktari wa Mifugo</p>
+                        <div class="vet-stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="vet-actions">
+                    <button class="vet-btn call">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        Simu
+                    </button>
+                    <button class="vet-btn message">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                        </svg>
+                        Ujumbe
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contact Bar -->
+            <div class="contact-bar">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+                <span>Simu: +255 712 345 678</span>
+            </div>
+        </section>
+
+        <!-- Wanyama Section -->
+        <section class="page-section" id="wanyama">
+            <h2 class="section-title">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4.5 12c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z" fill="#4CAF50"/>
+                </svg>
+                Wanyama
+            </h2>
+
+            <div class="list-item">
+                <div class="list-item-icon" style="background: #E8F5E9;">
+                    <svg viewBox="0 0 24 24" fill="#4CAF50" width="24" height="24">
+                        <path d="M4.5 12c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+                    </svg>
+                </div>
+                <div class="list-item-content">
+                    <h4>Ng'ombe wa Konde #001</h4>
+                    <p>Aina: Ng'ombe wa Friesian | Umri: Miaka 3</p>
+                </div>
+                <span class="list-item-badge badge-healthy">Salama</span>
+            </div>
+
+            <div class="list-item">
+                <div class="list-item-icon" style="background: #E8F5E9;">
+                    <svg viewBox="0 0 24 24" fill="#4CAF50" width="24" height="24">
+                        <path d="M4.5 12c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+                    </svg>
+                </div>
+                <div class="list-item-content">
+                    <h4>Ng'ombe #002</h4>
+                    <p>Aina: Ng'ombe wa Kienyeji | Umri: Miaka 2</p>
+                </div>
+                <span class="list-item-badge badge-sick">wagonjwa</span>
+            </div>
+
+            <div class="list-item">
+                <div class="list-item-icon" style="background: #FFF3E0;">
+                    <svg viewBox="0 0 24 24" fill="#FF9800" width="24" height="24">
+                        <path d="M4.5 12c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+                    </svg>
+                </div>
+                <div class="list-item-content">
+                    <h4>Mbuzi wa Kamba #015</h4>
+                    <p>Aina: Mbuzi ya Somali | Umri: Miaka 1.5</p>
+                </div>
+                <span class="list-item-badge badge-pending">Chanjo</span>
+            </div>
+        </section>
+
+        <!-- Chanjo Section -->
+        <section class="page-section" id="chanjo">
+            <h2 class="section-title">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="#FF9800"/>
+                </svg>
+                Chanjo
+            </h2>
+
+            <div class="list-item">
+                <div class="list-item-icon" style="background: #E8F5E9;">
+                    <svg viewBox="0 0 24 24" fill="#4CAF50" width="24" height="24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <div class="list-item-content">
+                    <h4>Chanjo ya Kuruho</h4>
+                    <p>Alichanjo: Ng'ombe #001 | Tarehe: 15 Apr 2026</p>
+                </div>
+                <span class="list-item-badge badge-healthy">Imefanyika</span>
+            </div>
+
+            <div class="list-item">
+                <div class="list-item-icon" style="background: #FFF3E0;">
+                    <svg viewBox="0 0 24 24" fill="#FF9800" width="24" height="24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                </div>
+                <div class="list-item-content">
+                    <h4>Chanjo ya Brucellosis</h4>
+                    <p>Ng'ombe #002 | Inatarajiwa: 20 Apr 2026</p>
+                </div>
+                <span class="list-item-badge badge-pending">Inasubiri</span>
+            </div>
+
+            <div class="list-item">
+                <div class="list-item-icon" style="background: #E8F5E9;">
+                    <svg viewBox="0 0 24 24" fill="#4CAF50" width="24" height="24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <div class="list-item-content">
+                    <h4>Chanjo ya FMD</h4>
+                    <p>Mbuzi #015 | Tarehe: 10 Apr 2026</p>
+                </div>
+                <span class="list-item-badge badge-healthy">Imefanyika</span>
+            </div>
+        </section>
+
+        <!-- Ripoti Section -->
+        <section class="page-section" id="ripoti">
+            <h2 class="section-title">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="#E91E63"/>
+                </svg>
+                Ripoti
+            </h2>
+
+            <div class="empty-state">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+                <h3>Ripoti zitakuwa hapa</h3>
+                <p>Takwimu za mifugo yako zitaonekana hapa</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Action Menu (Popup) -->
+    <div class="action-menu" id="actionMenu">
+        <button class="action-item">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+            Ongeza Wanyama Mpya
+        </button>
+        <button class="action-item">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+            </svg>
+            Sajili Chanjo
+        </button>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-items">
+            <button class="nav-item active" onclick="setActiveNav(this); showSection('dashboard')">
+                <svg viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span>Dashibodi</span>
+            </button>
+            <button class="nav-item" onclick="setActiveNav(this); showSection('wanyama')">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4.5 12c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5zm9 0c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+                </svg>
+                <span>Wanyama</span>
+            </button>
+            <div class="fab-container">
+                <div class="fab" onclick="toggleActionMenu()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                </div>
+            </div>
+            <button class="nav-item" onclick="setActiveNav(this); showSection('chanjo')">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6z"/>
+                </svg>
+                <span>Chanjo</span>
+            </button>
+            <button class="nav-item" onclick="setActiveNav(this); showSection('ripoti')">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+                <span>Ripoti</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            // Close action menu if open
+            document.getElementById('actionMenu').classList.remove('show');
+        }
+
+        function setActiveNav(element) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        function toggleActionMenu() {
+            document.getElementById('actionMenu').classList.toggle('show');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const fab = document.querySelector('.fab');
+            const menu = document.getElementById('actionMenu');
+            if (!fab.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

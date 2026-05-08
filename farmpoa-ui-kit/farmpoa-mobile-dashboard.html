@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Farmpoa - Farm Management Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #4CAF50;
+            --soft-pink: #F48FB1;
+            --dark-green: #388E3C;
+            --light-green: #81C784;
+            --cream: #FFF8E1;
+            --white: #FFFFFF;
+            --dark-text: #2D3436;
+            --gray-text: #636E72;
+            --light-bg: #F5F6FA;
+            --success: #00B894;
+            --warning: #FDCB6E;
+            --danger: #E17055;
+            --shadow: 0 4px 20px rgba(76, 175, 80, 0.15);
+            --shadow-hover: 0 8px 30px rgba(76, 175, 80, 0.25);
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--light-bg);
+            min-height: 100vh;
+            padding-bottom: 80px;
+            color: var(--dark-text);
+        }
+
+        /* Responsive Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 0 24px 100px;
+            }
+            .container {
+                padding: 0 32px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            body {
+                padding: 0 48px 120px;
+            }
+            .container {
+                padding: 0 48px;
+            }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            padding: 16px;
+            padding-top: 24px;
+            border-radius: 0 0 24px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .logo-text {
+            color: var(--white);
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .notification-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .notification-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .notification-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--white);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 10px;
+            height: 10px;
+            background: var(--danger);
+            border-radius: 50%;
+            border: 2px solid var(--primary-green);
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            padding: 24px 16px 16px;
+        }
+
+        .welcome-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-text);
+            line-height: 1.2;
+        }
+
+        .welcome-text span {
+            display: block;
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--gray-text);
+            margin-top: 4px;
+        }
+
+        .greeting-accent {
+            background: linear-gradient(135deg, var(--primary-green), var(--soft-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 0 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--soft-pink));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-icon.green {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+        }
+
+        .stat-icon.pink {
+            background: linear-gradient(135deg, #FCE4EC, #F8BBD9);
+        }
+
+        .stat-icon.blue {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+        }
+
+        .stat-icon.yellow {
+            background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+        }
+
+        .stat-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--gray-text);
+            font-weight: 500;
+        }
+
+        .stat-trend {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 20px;
+        }
+
+        .stat-trend.up {
+            background: #E8F5E9;
+            color: var(--primary-green);
+        }
+
+        .stat-trend.alert {
+            background: #FFEBEE;
+            color: var(--danger);
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .section-link {
+            font-size: 14px;
+            color: var(--primary-green);
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animal Cards */
+        .animal-cards {
+            padding: 0 16px;
+            margin-bottom: 24px;
+        }
+
+        .animal-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .animal-card:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .animal-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .animal-avatar.cow {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+        }
+
+        .animal-avatar.pig {
+            background: linear-gradient(135deg, #FCE4EC, #F8BBD9);
+        }
+
+        .animal-avatar.chicken {
+            background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+        }
+
+        .animal-avatar svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .animal-info {
+            flex: 1;
+        }
+
+        .animal-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 4px;
+        }
+
+        .animal-type {
+            font-size: 13px;
+            color: var(--gray-text);
+            margin-bottom: 8px;
+        }
+
+        .animal-meta {
+            display: flex;
+            gap: 12px;
+        }
+
+        .animal-meta span {
+            font-size: 11px;
+            color: var(--gray-text);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .animal-meta svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .health-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .health-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .health-dot.green { background: var(--success); }
+        .health-dot.yellow { background: var(--warning); }
+        .health-dot.red { background: var(--danger); }
+
+        .health-label {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--gray-text);
+        }
+
+        /* Reminders Section */
+        .reminders-section {
+            padding: 0 16px;
+            margin-bottom: 24px;
+        }
+
+        .reminder-card {
+            background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+            border-radius: 16px;
+            padding: 16px;
+            color: var(--white);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .reminder-card:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .reminder-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .reminder-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--white);
+        }
+
+        .reminder-content {
+            flex: 1;
+        }
+
+        .reminder-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .reminder-desc {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .reminder-time {
+            font-size: 11px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 375px;
+            background: var(--white);
+            padding: 12px 16px;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 24px 24px 0 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: var(--light-bg);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+        }
+
+        .nav-item.active .nav-icon svg {
+            fill: var(--primary-green);
+        }
+
+        .nav-item.active .nav-label {
+            color: var(--primary-green);
+        }
+
+        .nav-icon {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gray-text);
+            transition: fill 0.3s ease;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--gray-text);
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover .nav-icon svg {
+            fill: var(--primary-green);
+        }
+
+        .nav-item:hover .nav-label {
+            color: var(--primary-green);
+        }
+
+        /* Page Content Areas */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card, .animal-card, .reminder-card {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.15s; }
+        .stat-card:nth-child(3) { animation-delay: 0.2s; }
+        .stat-card:nth-child(4) { animation-delay: 0.25s; }
+
+        .animal-card:nth-child(1) { animation-delay: 0.3s; }
+        .animal-card:nth-child(2) { animation-delay: 0.35s; }
+        .animal-card:nth-child(3) { animation-delay: 0.4s; }
+
+        /* Additional Stats Detail */
+        .stats-detail {
+            display: none;
+        }
+
+        .stats-detail.active {
+            display: block;
+        }
+
+        /* Tab content visibility */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 375px) {
+            .welcome-text {
+                font-size: 24px;
+            }
+
+            .stat-value {
+                font-size: 20px;
+            }
+        }
+
+        /* Touch feedback */
+        .stat-card:active, .animal-card:active, .reminder-card:active {
+            transform: scale(0.98);
+        }
+
+        /* Notification Panel */
+        .notification-panel {
+            position: absolute;
+            top: 70px;
+            right: 16px;
+            width: 280px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            z-index: 200;
+            display: none;
+            overflow: hidden;
+        }
+
+        .notification-panel.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .notification-header {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .notification-item {
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #f5f5f5;
+            transition: background 0.2s ease;
+            cursor: pointer;
+        }
+
+        .notification-item:hover {
+            background: var(--light-bg);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notif-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notif-icon.alert {
+            background: #FFEBEE;
+        }
+
+        .notif-icon.info {
+            background: #E3F2FD;
+        }
+
+        .notif-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .notif-content {
+            flex: 1;
+        }
+
+        .notif-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--dark-text);
+        }
+
+        .notif-time {
+            font-size: 11px;
+            color: var(--gray-text);
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="#4CAF50">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <span class="logo-text">Farmpoa</span>
+            </div>
+            <button class="notification-btn" onclick="toggleNotifications()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                </svg>
+                <span class="notification-badge"></span>
+            </button>
+        </div>
+
+        <!-- Notification Panel -->
+        <div class="notification-panel" id="notificationPanel">
+            <div class="notification-header">Notifications</div>
+            <div class="notification-item">
+                <div class="notif-icon alert">
+                    <svg viewBox="0 0 24 24" fill="#E17055">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                </div>
+                <div class="notif-content">
+                    <div class="notif-title">Maziwa needs vaccination check</div>
+                    <div class="notif-time">2 hours ago</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notif-icon info">
+                    <svg viewBox="0 0 24 24" fill="#4CAF50">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <div class="notif-content">
+                    <div class="notif-title">Milk target reached today!</div>
+                    <div class="notif-time">5 hours ago</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notif-icon alert">
+                    <svg viewBox="0 0 24 24" fill="#E17055">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                </div>
+                <div class="notif-content">
+                    <div class="notif-title">Weight check overdue for Nguruwe</div>
+                    <div class="notif-time">1 day ago</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Tab Content -->
+        <div class="tab-content active" id="homeTab">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h1 class="welcome-text">
+                    Mambo, Farmer!
+                    <span>Here's your farm overview</span>
+                </h1>
+            </section>
+
+            <!-- Quick Stats -->
+            <section class="quick-stats">
+                <div class="stat-card" onclick="showStatsDetail('animals')">
+                    <div class="stat-icon green">
+                        <svg viewBox="0 0 24 24" fill="#4CAF50">
+                            <path d="M18 4H6C4.9 4 4 4.9 4 6v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 12H7c-.55 0-1-.45-1-1v-1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1v1c0 .55-.45 1-1 1z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Total Animals</div>
+                    <span class="stat-trend up">+2 this week</span>
+                </div>
+
+                <div class="stat-card" onclick="showStatsDetail('milk')">
+                    <div class="stat-icon pink">
+                        <svg viewBox="0 0 24 24" fill="#F48FB1">
+                            <path d="M5 6v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2zm12 0c0-1.1-.9-2-2-2s-2 .9-2 2v2H5V6h14v2h-2V6z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">18.5L</div>
+                    <div class="stat-label">Milk Today</div>
+                    <span class="stat-trend up">+3.2L</span>
+                </div>
+
+                <div class="stat-card" onclick="showStatsDetail('eggs')">
+                    <div class="stat-icon blue">
+                        <svg viewBox="0 0 24 24" fill="#4A90D9">
+                            <path d="M12 3C9.5 3 7.5 5 7 7.5c-.5 2.5.5 5 2.5 6.5 1 1 2.5 1.5 4 1.5s3-.5 4-1.5c2-1.5 3-4 2.5-6.5C16.5 5 14.5 3 12 3z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Eggs Collected</div>
+                    <span class="stat-trend up">+8 today</span>
+                </div>
+
+                <div class="stat-card" onclick="showStatsDetail('health')">
+                    <div class="stat-icon yellow">
+                        <svg viewBox="0 0 24 24" fill="#FDCB6E">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Health Alerts</div>
+                    <span class="stat-trend alert">Action needed</span>
+                </div>
+            </section>
+
+            <!-- Animal Cards Section -->
+            <div class="section-header">
+                <h2 class="section-title">Your Animals</h2>
+                <a class="section-link" onclick="switchTab('animals')">View All</a>
+            </div>
+
+            <section class="animal-cards">
+                <div class="animal-card" onclick="showAnimalDetail('Maziwa')">
+                    <div class="animal-avatar cow">
+                        <svg viewBox="0 0 24 24" fill="#4CAF50">
+                            <path d="M12 3c-1.27 0-2.4.8-2.82 2H4c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h3v2H7v2h10v-2h-2v-2h3c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2h-5.18c-.42-1.2-1.55-2-2.82-2zm-1 8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+                        </svg>
+                    </div>
+                    <div class="animal-info">
+                        <div class="animal-name">Maziwa</div>
+                        <div class="animal-type">Dairy Cow - Friesian</div>
+                        <div class="animal-meta">
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="#636E72"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                                Age: 4 years
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="#636E72"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                480kg
+                            </span>
+                        </div>
+                    </div>
+                    <div class="health-indicator">
+                        <div class="health-dot green"></div>
+                        <span class="health-label">Healthy</span>
+                    </div>
+                </div>
+
+                <div class="animal-card" onclick="showAnimalDetail('Nguruwe')">
+                    <div class="animal-avatar pig">
+                        <svg viewBox="0 0 24 24" fill="#F48FB1">
+                            <path d="M12 4c-2.21 0-4.2.78-5.66 2.08C5.47 7.32 5 9.11 5 11c0 3.87 3.13 7 7 7h.26c.88 0 1.66-.36 2.24-.94.47.18.98.29 1.5.29 3.31 0 6-2.69 6-6 0-2.37-1.38-4.4-3.36-5.35C17.56 5.78 15.44 5 13 5c-.34 0-.68.03-1 .08z"/>
+                        </svg>
+                    </div>
+                    <div class="animal-info">
+                        <div class="animal-name">Nguruwe</div>
+                        <div class="animal-type">Pig - Large White</div>
+                        <div class="animal-meta">
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="#636E72"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                                Age: 2 years
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="#636E72"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                120kg
+                            </span>
+                        </div>
+                    </div>
+                    <div class="health-indicator">
+                        <div class="health-dot yellow"></div>
+                        <span class="health-label">Monitor</span>
+                    </div>
+                </div>
+
+                <div class="animal-card" onclick="showAnimalDetail('Kuku')">
+                    <div class="animal-avatar chicken">
+                        <svg viewBox="0 0 24 24" fill="#FDCB6E">
+                            <path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/>
+                        </svg>
+                    </div>
+                    <div class="animal-info">
+                        <div class="animal-name">Kuku</div>
+                        <div class="animal-type">Chicken - Rhode Island Red</div>
+                        <div class="animal-meta">
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="#636E72"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                                Age: 1.5 years
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="#636E72"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                2.5kg
+                            </span>
+                        </div>
+                    </div>
+                    <div class="health-indicator">
+                        <div class="health-dot green"></div>
+                        <span class="health-label">Healthy</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reminders Section -->
+            <div class="section-header">
+                <h2 class="section-title">Reminders</h2>
+                <a class="section-link" onclick="switchTab('health')">View All</a>
+            </div>
+
+            <section class="reminders-section">
+                <div class="reminder-card" onclick="showReminderDetail('vaccination')">
+                    <div class="reminder-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+                        </svg>
+                    </div>
+                    <div class="reminder-content">
+                        <div class="reminder-title">Vaccination due tomorrow</div>
+                        <div class="reminder-desc">Maziwa needs Brucellosis vaccine</div>
+                    </div>
+                    <span class="reminder-time">Tomorrow</span>
+                </div>
+
+                <div class="reminder-card" onclick="showReminderDetail('weight')">
+                    <div class="reminder-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                        </svg>
+                    </div>
+                    <div class="reminder-content">
+                        <div class="reminder-title">Weight check needed</div>
+                        <div class="reminder-desc">Nguruwe's monthly weight assessment</div>
+                    </div>
+                    <span class="reminder-time">In 3 days</span>
+                </div>
+            </section>
+        </div>
+
+        <!-- Animals Tab Content -->
+        <div class="tab-content" id="animalsTab">
+            <section class="welcome-section">
+                <h1 class="welcome-text">
+                    Animals
+                    <span>Manage your livestock</span>
+                </h1>
+            </section>
+            <section class="animal-cards">
+                <div class="animal-card">
+                    <div class="animal-avatar cow">
+                        <svg viewBox="0 0 24 24" fill="#4CAF50">
+                            <path d="M12 3c-1.27 0-2.4.8-2.82 2H4c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h3v2H7v2h10v-2h-2v-2h3c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2h-5.18c-.42-1.2-1.55-2-2.82-2zm-1 8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+                        </svg>
+                    </div>
+                    <div class="animal-info">
+                        <div class="animal-name">Maziwa</div>
+                        <div class="animal-type">Dairy Cow - Friesian</div>
+                        <div class="animal-meta">
+                            <span>Age: 4 years</span>
+                            <span>480kg</span>
+                        </div>
+                    </div>
+                    <div class="health-indicator">
+                        <div class="health-dot green"></div>
+                        <span class="health-label">Healthy</span>
+                    </div>
+                </div>
+
+                <div class="animal-card">
+                    <div class="animal-avatar pig">
+                        <svg viewBox="0 0 24 24" fill="#F48FB1">
+                            <path d="M12 4c-2.21 0-4.2.78-5.66 2.08C5.47 7.32 5 9.11 5 11c0 3.87 3.13 7 7 7h.26c.88 0 1.66-.36 2.24-.94.47.18.98.29 1.5.29 3.31 0 6-2.69 6-6 0-2.37-1.38-4.4-3.36-5.35C17.56 5.78 15.44 5 13 5c-.34 0-.68.03-1 .08z"/>
+                        </svg>
+                    </div>
+                    <div class="animal-info">
+                        <div class="animal-name">Nguruwe</div>
+                        <div class="animal-type">Pig - Large White</div>
+                        <div class="animal-meta">
+                            <span>Age: 2 years</span>
+                            <span>120kg</span>
+                        </div>
+                    </div>
+                    <div class="health-indicator">
+                        <div class="health-dot yellow"></div>
+                        <span class="health-label">Monitor</span>
+                    </div>
+                </div>
+
+                <div class="animal-card">
+                    <div class="animal-avatar chicken">
+                        <svg viewBox="0 0 24 24" fill="#FDCB6E">
+                            <path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/>
+                        </svg>
+                    </div>
+                    <div class="animal-info">
+                        <div class="animal-name">Kuku</div>
+                        <div class="animal-type">Chicken - Rhode Island Red</div>
+                        <div class="animal-meta">
+                            <span>Age: 1.5 years</span>
+                            <span>2.5kg</span>
+                        </div>
+                    </div>
+                    <div class="health-indicator">
+                        <div class="health-dot green"></div>
+                        <span class="health-label">Healthy</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Health Tab Content -->
+        <div class="tab-content" id="healthTab">
+            <section class="welcome-section">
+                <h1 class="welcome-text">
+                    Health
+                    <span>Monitor and manage wellness</span>
+                </h1>
+            </section>
+            <section class="reminders-section">
+                <div class="reminder-card" style="background: linear-gradient(135deg, var(--warning), #F39C12);">
+                    <div class="reminder-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+                        </svg>
+                    </div>
+                    <div class="reminder-content">
+                        <div class="reminder-title">Vaccination due tomorrow</div>
+                        <div class="reminder-desc">Maziwa needs Brucellosis vaccine</div>
+                    </div>
+                    <span class="reminder-time">Tomorrow</span>
+                </div>
+
+                <div class="reminder-card" style="background: linear-gradient(135deg, var(--danger), #C0392B);">
+                    <div class="reminder-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                    </div>
+                    <div class="reminder-content">
+                        <div class="reminder-title">Weight check needed</div>
+                        <div class="reminder-desc">Nguruwe's monthly weight assessment</div>
+                    </div>
+                    <span class="reminder-time">Overdue</span>
+                </div>
+            </section>
+        </div>
+
+        <!-- Reports Tab Content -->
+        <div class="tab-content" id="reportsTab">
+            <section class="welcome-section">
+                <h1 class="welcome-text">
+                    Reports
+                    <span>Farm analytics and insights</span>
+                </h1>
+            </section>
+            <section class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <svg viewBox="0 0 24 24" fill="#4CAF50">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">+18%</div>
+                    <div class="stat-label">Milk Production</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <svg viewBox="0 0 24 24" fill="#4A90D9">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">98%</div>
+                    <div class="stat-label">Health Score</div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Profile Tab Content -->
+        <div class="tab-content" id="profileTab">
+            <section class="welcome-section">
+                <h1 class="welcome-text">
+                    Profile
+                    <span>Farm settings and account</span>
+                </h1>
+            </section>
+            <section class="quick-stats">
+                <div class="stat-card" style="grid-column: span 2;">
+                    <div class="stat-icon green" style="width: 60px; height: 60px; margin: 0 auto 16px;">
+                        <svg viewBox="0 0 24 24" fill="#4CAF50">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value" style="text-align: center; font-size: 20px;">Mwamba Farm</div>
+                    <div class="stat-label" style="text-align: center;">Kisumu County, Kenya</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('home')" id="nav-home">
+            <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+            </div>
+            <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('animals')" id="nav-animals">
+            <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18 4H6C4.9 4 4 4.9 4 6v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 12H7c-.55 0-1-.45-1-1v-1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1v1c0 .55-.45 1-1 1z"/>
+                </svg>
+            </div>
+            <span class="nav-label">Animals</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('health')" id="nav-health">
+            <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/>
+                </svg>
+            </div>
+            <span class="nav-label">Health</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('reports')" id="nav-reports">
+            <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+            </div>
+            <span class="nav-label">Reports</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('profile')" id="nav-profile">
+            <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </div>
+            <span class="nav-label">Profile</span>
+        </div>
+    </nav>
+
+    <script>
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            const targetTab = document.getElementById(tabName + 'Tab');
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            // Update navigation active state
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            const activeNav = document.getElementById('nav-' + tabName);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+
+            // Close notification panel if open
+            document.getElementById('notificationPanel').classList.remove('show');
+        }
+
+        // Notification toggle
+        function toggleNotifications() {
+            const panel = document.getElementById('notificationPanel');
+            panel.classList.toggle('show');
+        }
+
+        // Close notification panel when clicking outside
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById('notificationPanel');
+            const btn = document.querySelector('.notification-btn');
+            if (!panel.contains(event.target) && !btn.contains(event.target)) {
+                panel.classList.remove('show');
+            }
+        });
+
+        // Show stats detail (placeholder for future functionality)
+        function showStatsDetail(type) {
+            console.log('Showing stats for:', type);
+            // Could expand to show detailed view
+        }
+
+        // Show animal detail (placeholder for future functionality)
+        function showAnimalDetail(name) {
+            console.log('Showing animal:', name);
+            // Could expand to show animal profile
+        }
+
+        // Show reminder detail (placeholder for future functionality)
+        function showReminderDetail(type) {
+            console.log('Showing reminder:', type);
+            // Could expand to show reminder details
+        }
+
+        // Add touch feedback animation
+        document.querySelectorAll('.stat-card, .animal-card, .reminder-card').forEach(card => {
+            card.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('touchend', function() {
+                this.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>

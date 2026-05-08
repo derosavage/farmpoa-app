@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Guava flesh gradient -->
+    <linearGradient id="guavaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B8A"/>
+      <stop offset="50%" stop-color="#FFAA8C"/>
+      <stop offset="100%" stop-color="#FFE4C4"/>
+    </linearGradient>
+
+    <!-- Subtle inner shadow filter -->
+    <filter id="innerShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur"/>
+      <feOffset dx="0" dy="4" result="offsetBlur"/>
+      <feComposite in="offsetBlur" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="inverse"/>
+      <feFlood flood-color="#000000" flood-opacity="0.15" result="color"/>
+      <feComposite in="color" in2="inverse" operator="in" result="shadow"/>
+      <feComposite in="shadow" in2="SourceGraphic" operator="over"/>
+    </filter>
+
+    <!-- Leaf vein gradient for depth -->
+    <linearGradient id="veinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8F7A" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FFB89A" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Circular background (subtle white/off-white) -->
+  <circle cx="256" cy="256" r="240" fill="#FFFBF8" stroke="#FFE8DC" stroke-width="2"/>
+
+  <!-- Main leaf shape forming stylized "F" -->
+  <g filter="url(#innerShadow)">
+    <!-- Leaf outline / main "F" form -->
+    <path d="
+      M 256 80
+      C 340 80, 400 140, 400 200
+      C 400 260, 360 300, 300 320
+      C 340 340, 370 380, 370 420
+      C 370 460, 330 490, 270 490
+      L 256 490
+      C 200 490, 150 450, 130 390
+      C 110 330, 130 260, 180 210
+      L 180 160
+      C 150 140, 120 130, 100 130
+      C 80 130, 65 145, 65 165
+      C 65 185, 80 200, 100 200
+      L 140 200
+      L 140 250
+      C 100 300, 90 360, 110 410
+      C 130 460, 180 510, 240 510
+      L 300 510
+      C 360 510, 410 470, 410 420
+      C 410 370, 380 330, 340 310
+      C 380 290, 440 250, 440 200
+      C 440 140, 380 80, 300 80
+      L 256 80
+      Z
+    " fill="url(#guavaGradient)"/>
+
+    <!-- Inner cutout to form the "F" structure -->
+    <path d="
+      M 200 150
+      L 280 150
+      C 310 150, 330 170, 330 200
+      C 330 230, 310 250, 280 250
+      L 220 250
+      L 220 300
+      L 320 300
+      C 350 300, 370 320, 370 350
+      C 370 380, 350 400, 320 400
+      L 220 400
+      L 220 460
+      L 370 460
+      C 400 460, 420 440, 420 410
+      C 420 380, 400 360, 370 360
+      L 280 360
+      L 280 310
+      L 360 310
+      C 385 310, 405 290, 405 265
+      C 405 240, 385 220, 360 220
+      L 200 220
+      Z
+    " fill="#FFFBF8"/>
+  </g>
+
+  <!-- Central vein of the leaf for depth -->
+  <path d="
+    M 256 120
+    Q 260 200, 255 280
+    Q 250 350, 260 430
+  " stroke="url(#veinGradient)" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- Secondary veins for organic leaf feel -->
+  <g stroke="url(#veinGradient)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7">
+    <!-- Right side veins -->
+    <path d="M 258 160 Q 300 175, 340 190"/>
+    <path d="M 256 220 Q 290 235, 330 245"/>
+    <path d="M 254 280 Q 285 295, 320 305"/>
+    <path d="M 256 340 Q 280 355, 310 365"/>
+    <path d="M 258 400 Q 280 410, 300 418"/>
+
+    <!-- Left side veins -->
+    <path d="M 254 180 Q 220 195, 185 205"/>
+    <path d="M 255 240 Q 225 255, 190 265"/>
+    <path d="M 253 300 Q 225 315, 195 325"/>
+    <path d="M 256 360 Q 230 372, 205 382"/>
+  </g>
+
+  <!-- Subtle highlight on leaf -->
+  <ellipse cx="200" cy="180" rx="40" ry="25" fill="#FFFFFF" opacity="0.3" transform="rotate(-20 200 180)"/>
+</svg>

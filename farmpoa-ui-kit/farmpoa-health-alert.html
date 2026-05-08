@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmpoa - Health Alert</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #880E4F;
+            --primary: #E91E63;
+            --primary-light: #F8BBD9;
+            --white: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-medium: #4a4a5a;
+            --text-light: #8a8a9a;
+            --danger: #dc3545;
+            --danger-bg: #fff5f5;
+            --success: #28a745;
+            --success-bg: #f0fff4;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .alert-container {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(136, 14, 79, 0.25);
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .alert-container {
+                max-width: 520px;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .warning-icon-container {
+            position: relative;
+            width: 56px;
+            height: 56px;
+            flex-shrink: 0;
+        }
+
+        .warning-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .warning-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--primary);
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 56px;
+            height: 56px;
+            border: 3px solid var(--white);
+            border-radius: 50%;
+            animation: pulse 2s ease-out infinite;
+            opacity: 0;
+        }
+
+        .pulse-ring:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        .header-text h1 {
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .header-text p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .alert-body {
+            padding: 24px 28px;
+        }
+
+        .animal-card {
+            background: linear-gradient(135deg, var(--danger-bg) 0%, rgba(255, 245, 245, 0.5) 100%);
+            border: 1px solid rgba(220, 53, 69, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .animal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .animal-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .animal-avatar {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(136, 14, 79, 0.3);
+        }
+
+        .animal-avatar svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--white);
+        }
+
+        .animal-details h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .animal-details span {
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .severity-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: var(--danger);
+            color: var(--white);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .severity-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            border-radius: 50%;
+            animation: blink 1s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .issue-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .issue-item {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .issue-item label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .issue-item p {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .issue-item p.highlight {
+            color: var(--danger);
+        }
+
+        .actions-section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--primary);
+        }
+
+        .actions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: #fafafa;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .action-item:hover {
+            background: var(--primary-light);
+            border-color: rgba(136, 14, 79, 0.1);
+        }
+
+        .action-item.checked {
+            background: var(--success-bg);
+            border-color: rgba(40, 167, 69, 0.2);
+        }
+
+        .checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--text-light);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .action-item.checked .checkbox {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .checkbox svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--white);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .action-item.checked .checkbox svg {
+            opacity: 1;
+        }
+
+        .action-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .action-item.checked .action-text {
+            color: var(--success);
+        }
+
+        .cta-section {
+            margin-bottom: 16px;
+        }
+
+        .btn-vet {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(136, 14, 79, 0.35);
+        }
+
+        .btn-vet:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(136, 14, 79, 0.45);
+        }
+
+        .btn-vet svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--white);
+        }
+
+        .secondary-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--white);
+            color: var(--text-medium);
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+            border-color: #d0d0d0;
+        }
+
+        .btn-secondary.outline {
+            color: var(--primary);
+            border-color: var(--primary-light);
+            background: var(--primary-light);
+        }
+
+        .btn-secondary.outline:hover {
+            background: rgba(136, 14, 79, 0.08);
+        }
+
+        .recent-cases {
+            border-top: 1px solid #f0f0f0;
+            padding-top: 20px;
+            margin-top: 4px;
+        }
+
+        .cases-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .case-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #fafafa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .case-item:hover {
+            background: #f0f0f0;
+        }
+
+        .case-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .case-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--primary);
+        }
+
+        .case-info {
+            flex: 1;
+        }
+
+        .case-info h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .case-info p {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .case-status {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .case-status.resolved {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .case-status.monitoring {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        @media (max-width: 480px) {
+            .alert-container {
+                border-radius: 16px;
+            }
+
+            .alert-header {
+                padding: 20px 22px;
+            }
+
+            .alert-body {
+                padding: 20px 22px;
+            }
+
+            .issue-details {
+                grid-template-columns: 1fr;
+            }
+
+            .secondary-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="alert-container">
+        <div class="alert-header">
+            <div class="warning-icon-container">
+                <div class="warning-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                    </svg>
+                </div>
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring"></div>
+            </div>
+            <div class="header-text">
+                <h1>Health Alert - Action Required</h1>
+                <p>Immediate attention needed</p>
+            </div>
+        </div>
+
+        <div class="alert-body">
+            <div class="animal-card">
+                <div class="animal-header">
+                    <div class="animal-info">
+                        <div class="animal-avatar">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                                <ellipse cx="8" cy="10" rx="2" ry="2.5"/>
+                                <ellipse cx="16" cy="10" rx="2" ry="2.5"/>
+                                <path d="M12 16c-2 0-3.5-1-4-2h8c-.5 1-2 2-4 2z"/>
+                            </svg>
+                        </div>
+                        <div class="animal-details">
+                            <h2>Maziwa</h2>
+                            <span>Friesian Cow - ID: #FK-2847</span>
+                        </div>
+                    </div>
+                    <div class="severity-badge">
+                        <span class="severity-dot"></span>
+                        High
+                    </div>
+                </div>
+                <div class="issue-details">
+                    <div class="issue-item">
+                        <label>Issue Detected</label>
+                        <p>Fever detected</p>
+                    </div>
+                    <div class="issue-item">
+                        <label>Temperature</label>
+                        <p class="highlight">40.2°C</p>
+                    </div>
+                    <div class="issue-item">
+                        <label>Detected At</label>
+                        <p>Apr 24, 06:15 AM</p>
+                    </div>
+                    <div class="issue-item">
+                        <label>Time Elapsed</label>
+                        <p>2 hours ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions-section">
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    Recommended Actions
+                </div>
+                <div class="actions-list">
+                    <div class="action-item" onclick="toggleAction(this)">
+                        <div class="checkbox">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </div>
+                        <span class="action-text">Check water intake and hydration status</span>
+                    </div>
+                    <div class="action-item" onclick="toggleAction(this)">
+                        <div class="checkbox">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </div>
+                        <span class="action-text">Move to shaded area and reduce stress</span>
+                    </div>
+                    <div class="action-item" onclick="toggleAction(this)">
+                        <div class="checkbox">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </div>
+                        <span class="action-text">Monitor temperature every 30 minutes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <button class="btn-vet" onclick="contactVet()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    Contact Veterinarian
+                </button>
+            </div>
+
+            <div class="secondary-actions">
+                <button class="btn-secondary" onclick="dismissAlert()">Dismiss</button>
+                <button class="btn-secondary outline" onclick="markReviewed()">Mark as Reviewed</button>
+            </div>
+
+            <div class="recent-cases">
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                    </svg>
+                    Recent Similar Cases
+                </div>
+                <div class="cases-list">
+                    <div class="case-item">
+                        <div class="case-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            </svg>
+                        </div>
+                        <div class="case-info">
+                            <h4>Goru - Respiratory Issue</h4>
+                            <p>Temperature 39.8°C - Apr 22, 2026</p>
+                        </div>
+                        <span class="case-status resolved">Resolved</span>
+                    </div>
+                    <div class="case-item">
+                        <div class="case-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            </svg>
+                        </div>
+                        <div class="case-info">
+                            <h4>Bibi - Fever (Mastitis)</h4>
+                            <p>Temperature 40.5°C - Apr 18, 2026</p>
+                        </div>
+                        <span class="case-status resolved">Resolved</span>
+                    </div>
+                    <div class="case-item">
+                        <div class="case-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            </svg>
+                        </div>
+                        <div class="case-info">
+                            <h4>Kwame - Fever (Unknown)</h4>
+                            <p>Temperature 40.1°C - Apr 15, 2026</p>
+                        </div>
+                        <span class="case-status monitoring">Monitoring</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAction(element) {
+            element.classList.toggle('checked');
+        }
+
+        function contactVet() {
+            const btn = document.querySelector('.btn-vet');
+            btn.innerHTML = `
+                <svg viewBox="0 0 24 24" style="animation: spin 1s linear infinite;">
+                    <path d="M12 4V2A8 8 0 0 0 4 10h2a6 6 0 0 1 6-6zm0 16v2a8 8 0 0 0 8-10h-2a6 6 0 0 1-6 6zm-8-8H2a8 8 0 0 0 8 8V12a6 6 0 0 1-6-6zm16-4h-2a6 6 0 0 1-6 6v2a8 8 0 0 0 8-8z"/>
+                </svg>
+                Connecting...
+            `;
+            btn.style.pointerEvents = 'none';
+
+            setTimeout(() => {
+                btn.innerHTML = `
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    Veterinarian Notified
+                `;
+                btn.style.background = 'linear-gradient(135deg, #28a745 0%, #34ce57 100%)';
+            }, 2000);
+        }
+
+        function dismissAlert() {
+            const container = document.querySelector('.alert-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(-20px) scale(0.95)';
+            container.style.transition = 'all 0.4s ease';
+
+            setTimeout(() => {
+                alert('Alert dismissed. You can view this in your notifications.');
+                location.reload();
+            }, 400);
+        }
+
+        function markReviewed() {
+            const btn = document.querySelector('.btn-secondary.outline');
+            btn.textContent = 'Reviewed';
+            btn.style.background = '#e8f5e9';
+            btn.style.borderColor = '#28a745';
+            btn.style.color = '#28a745';
+            btn.style.pointerEvents = 'none';
+
+            setTimeout(() => {
+                alert('Alert marked as reviewed. Thank you.');
+            }, 300);
+        }
+
+        // Add subtle entrance animation for action items
+        document.querySelectorAll('.action-item').forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-10px)';
+            setTimeout(() => {
+                item.style.transition = 'all 0.3s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 400 + (index * 100));
+        });
+
+        // Add entrance animation for case items
+        document.querySelectorAll('.case-item').forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                item.style.transition = 'all 0.3s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 800 + (index * 100));
+        });
+    </script>
+
+    <style>
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</body>
+</html>

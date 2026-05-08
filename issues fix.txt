@@ -1,0 +1,39 @@
+fixes
+
+1.ux
+
+ 
+add Swahili 
+add eyecare 
+less filling details
+  
+
+2.warmer experience for petowner user experience warmer)
+
+  3
+Option B — Soft delete (recommended for your app)
+
+Add deletedAt to:
+Animal
+All child records
+Filter them out instead of deleting
+
+👉 For a farming app: soft delete wins
+Farmers may need historical records later.
+4.sounds after specific actions(ie successful login)confetti
+
+make it easier save time plus iebc( alisema 5minutes - how can we reduce it and save time) 
+
+
+5.Add a validation layer (e.g.:
+
+DTOs + schema validation (Zod / Joi / class-validator))
+
+6.Add rate limiting (express-rate-limit)
+7.Add refresh tokens
+8.Add token versioning (for logout/invalidation)
+9.Add scoping
+10.vet_officer → assigned to farms/users
+Not global by default
+Create a unified “event” collection/table
+11.audit logging (important for vets/admins)

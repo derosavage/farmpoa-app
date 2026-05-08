@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Maziwa - Farmpoa Animal Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #4CAF50;
+            --primary-green-light: #E8F5E9;
+            --primary-green-dark: #388E3C;
+            --accent-pink: #E91E63;
+            --accent-pink-light: #FCE4EC;
+            --accent-pink-dark: #C2185B;
+            --bg-cream: #FAFAF5;
+            --card-bg: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-medium: #5A5A5A;
+            --text-light: #9E9E9E;
+            --border-light: #E8E8E8;
+            --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.5;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: var(--bg-cream);
+            padding: 0 16px;
+        }
+
+        @media (min-width: 768px) {
+            .app-container {
+                padding: 0 32px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .app-container {
+                padding: 0 48px;
+            }
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+            padding: 16px 20px 60px;
+            position: relative;
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .back-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .header-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            width: calc(100% - 40px);
+            max-width: 400px;
+            box-shadow: var(--shadow-medium);
+            text-align: center;
+        }
+
+        .animal-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green-light) 0%, var(--accent-pink-light) 100%);
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid white;
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+        }
+
+        .animal-avatar svg {
+            width: 50px;
+            height: 50px;
+            fill: var(--primary-green);
+        }
+
+        .animal-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .animal-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary-green-light);
+            color: var(--primary-green-dark);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .animal-tag svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--primary-green);
+        }
+
+        /* Tab Navigation */
+        .tabs-container {
+            margin-top: 140px;
+            padding: 0 20px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+            background: white;
+            padding: 6px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-green);
+            color: white;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .tab-btn:not(.active):hover {
+            background: var(--primary-green-light);
+            color: var(--primary-green-dark);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Title */
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 24px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--primary-green);
+        }
+
+        /* Info Card */
+        .info-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .info-item.full-width {
+            grid-column: span 2;
+        }
+
+        /* Production Section */
+        .production-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .production-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .production-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .production-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .production-unit {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            margin-top: 16px;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 120px;
+            gap: 8px;
+            padding: 0 4px;
+        }
+
+        .chart-bar-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-bar {
+            width: 100%;
+            max-width: 32px;
+            background: linear-gradient(180deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+            border-radius: 6px 6px 0 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .chart-bar:hover {
+            transform: scaleY(1.05);
+            box-shadow: 0 -4px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        .chart-bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--primary-green);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .chart-bar:hover::after {
+            opacity: 1;
+        }
+
+        .chart-label {
+            font-size: 11px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Egg Production */
+        .egg-production {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: var(--accent-pink-light);
+            border-radius: var(--radius-md);
+            margin-top: 16px;
+        }
+
+        .egg-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-pink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .egg-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .egg-info {
+            flex: 1;
+        }
+
+        .egg-label {
+            font-size: 13px;
+            color: var(--text-medium);
+        }
+
+        .egg-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-pink-dark);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 16px;
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-soft);
+            opacity: 0;
+            transform: translateX(-10px);
+            animation: slideIn 0.4s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-green);
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px var(--primary-green-light);
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 13px;
+            color: var(--text-medium);
+        }
+
+        .vaccine-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .vaccine-status.completed {
+            background: var(--primary-green-light);
+            color: var(--primary-green-dark);
+        }
+
+        .vaccine-status.pending {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        /* Illness Section */
+        .illness-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-soft);
+            border-left: 4px solid;
+            opacity: 0;
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        .illness-card:nth-child(1) { animation-delay: 0.1s; border-color: #4CAF50; }
+        .illness-card:nth-child(2) { animation-delay: 0.2s; border-color: #FF9800; }
+        .illness-card:nth-child(3) { animation-delay: 0.3s; border-color: var(--accent-pink); }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .illness-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .illness-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .illness-status {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .illness-status.resolved {
+            background: var(--primary-green-light);
+            color: var(--primary-green-dark);
+        }
+
+        .illness-status.under-treatment {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .illness-status.active {
+            background: var(--accent-pink-light);
+            color: var(--accent-pink-dark);
+        }
+
+        .illness-date {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .illness-notes {
+            font-size: 13px;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
+
+        .no-records {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+
+        .no-records svg {
+            width: 48px;
+            height: 48px;
+            fill: var(--text-light);
+            opacity: 0.5;
+            margin-bottom: 12px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 0 20px;
+            margin-top: 24px;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 12px;
+            background: var(--card-bg);
+            border: none;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        .action-btn-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn-icon.vaccination {
+            background: var(--primary-green-light);
+        }
+
+        .action-btn-icon.vaccination svg {
+            fill: var(--primary-green);
+        }
+
+        .action-btn-icon.illness {
+            background: var(--accent-pink-light);
+        }
+
+        .action-btn-icon.illness svg {
+            fill: var(--accent-pink);
+        }
+
+        .action-btn-icon.weight {
+            background: #E3F2FD;
+        }
+
+        .action-btn-icon.weight svg {
+            fill: #2196F3;
+        }
+
+        .action-btn-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Floating Action Button */
+        .fab-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+        }
+
+        .fab {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+            border: none;
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px rgba(76, 175, 80, 0.5);
+        }
+
+        .fab svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            transition: transform 0.3s ease;
+        }
+
+        .fab.active svg {
+            transform: rotate(45deg);
+        }
+
+        .fab-menu {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .fab.active + .fab-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--card-bg);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-medium);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .fab-menu-item:hover {
+            transform: translateX(-4px);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .fab-menu-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab-menu-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .fab-menu-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            width: 100%;
+            max-width: 360px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--border-light);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--text-light);
+        }
+
+        .modal-close svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--text-dark);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-medium);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-green-dark);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text-dark);
+            color: white;
+            padding: 14px 24px;
+            border-radius: var(--radius-lg);
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: var(--shadow-medium);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 300;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Health Score */
+        .health-score {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-green-light) 0%, white 100%);
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+        }
+
+        .health-score-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-green) 0deg 324deg, var(--border-light) 324deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .health-score-circle::before {
+            content: '';
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .health-score-value {
+            position: relative;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .health-score-info {
+            flex: 1;
+        }
+
+        .health-score-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .health-score-desc {
+            font-size: 12px;
+            color: var(--text-medium);
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 12px;
+            background: var(--bg-cream);
+            border-radius: var(--radius-md);
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <button class="back-btn" aria-label="Go back">
+                    <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                </button>
+                <span class="header-title">Animal Profile</span>
+            </div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="animal-avatar">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9c.83 0 1.5.67 1.5 1.5S7.83 14 7 14s-1.5-.67-1.5-1.5S6.17 11 7 11zm10 0c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zm-5 6c2.33 0 4.32-1.45 5.12-3.5H6.88c.8 2.05 2.79 3.5 5.12 3.5z"/></svg>
+            </div>
+            <h1 class="animal-name">Maziwa</h1>
+            <div class="animal-tag">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                #FPO-2847
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="medical">Medical</button>
+                <button class="tab-btn" data-tab="production">Production</button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div class="tab-content active" id="overview">
+                <!-- Health Score -->
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    Health Status
+                </div>
+                <div class="info-card">
+                    <div class="health-score">
+                        <div class="health-score-circle">
+                            <span class="health-score-value">90%</span>
+                        </div>
+                        <div class="health-score-info">
+                            <div class="health-score-label">Excellent Health</div>
+                            <div class="health-score-desc">Last checkup: 5 days ago</div>
+                        </div>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-value">6</div>
+                            <div class="stat-label">Vaccinations</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Illnesses</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">142</div>
+                            <div class="stat-label">Days Healthy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Basic Info -->
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                    Basic Information
+                </div>
+                <div class="info-card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Species</span>
+                            <span class="info-value">Cow</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Breed</span>
+                            <span class="info-value">Friesian</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Age</span>
+                            <span class="info-value">3.5 Years</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Weight</span>
+                            <span class="info-value">485 kg</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Gender</span>
+                            <span class="info-value">Female</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Status</span>
+                            <span class="info-value" style="color: var(--primary-green);">Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Summary -->
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                    Today's Summary
+                </div>
+                <div class="info-card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Milk Yield</span>
+                            <span class="info-value" style="color: var(--primary-green);">24.5 L</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Feed Intake</span>
+                            <span class="info-value">18.2 kg</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Water</span>
+                            <span class="info-value">52 L</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Activity</span>
+                            <span class="info-value" style="color: var(--primary-green);">Normal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Tab -->
+            <div class="tab-content" id="medical">
+                <!-- Vaccination Timeline -->
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                    Vaccination Records
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">March 15, 2026</div>
+                        <div class="timeline-title">Foot & Mouth Disease Vaccine</div>
+                        <div class="timeline-desc">Batch #FMD-2026-03, Dr. Kamau</div>
+                        <span class="vaccine-status completed">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Completed
+                        </span>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">February 20, 2026</div>
+                        <div class="timeline-title">Brucellosis Vaccination</div>
+                        <div class="timeline-desc">Batch #BRU-2026-01, Dr. Otieno</div>
+                        <span class="vaccine-status completed">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Completed
+                        </span>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">January 8, 2026</div>
+                        <div class="timeline-title">Anthrax Vaccine</div>
+                        <div class="timeline-desc">Batch #ANT-2026-01, Dr. Mwangi</div>
+                        <span class="vaccine-status completed">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Completed
+                        </span>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">December 12, 2025</div>
+                        <div class="timeline-title">Lumpy Skin Disease</div>
+                        <div class="timeline-desc">Batch #LSD-2025-04, Dr. Kamau</div>
+                        <span class="vaccine-status completed">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Completed
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Illness Logs -->
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm3-6c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3z"/></svg>
+                    Illness History
+                </div>
+                <div class="illness-card">
+                    <div class="illness-header">
+                        <div class="illness-title">Mastitis</div>
+                        <span class="illness-status resolved">Resolved</span>
+                    </div>
+                    <div class="illness-date">October 15, 2025</div>
+                    <div class="illness-notes">Treated with antibiotics for 7 days. Full recovery confirmed after follow-up test.</div>
+                </div>
+                <div class="illness-card">
+                    <div class="illness-header">
+                        <div class="illness-title">Mild Digestive Issue</div>
+                        <span class="illness-status resolved">Resolved</span>
+                    </div>
+                    <div class="illness-date">August 22, 2025</div>
+                    <div class="illness-notes">Dietary adjustment made. Probiotics administered for 5 days.</div>
+                </div>
+                <div class="illness-card">
+                    <div class="illness-header">
+                        <div class="illness-title">Respiratory Infection</div>
+                        <span class="illness-status active">Monitoring</span>
+                    </div>
+                    <div class="illness-date">April 10, 2026</div>
+                    <div class="illness-notes">Currently under treatment with antibiotics. Daily monitoring in progress.</div>
+                </div>
+            </div>
+
+            <!-- Production Tab -->
+            <div class="tab-content" id="production">
+                <!-- Milk Yield Chart -->
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                    Milk Production (Last 7 Days)
+                </div>
+                <div class="production-card">
+                    <div class="production-header">
+                        <div>
+                            <div class="production-title">Average Daily Yield</div>
+                            <div style="font-size: 12px; color: var(--text-light);">This week</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="production-value">23.4 L</div>
+                            <div class="production-unit">per day</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-bars">
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar" style="height: 70%;" data-value="21L"></div>
+                                <span class="chart-label">Mon</span>
+                            </div>
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar" style="height: 85%;" data-value="25.5L"></div>
+                                <span class="chart-label">Tue</span>
+                            </div>
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar" style="height: 75%;" data-value="22.5L"></div>
+                                <span class="chart-label">Wed</span>
+                            </div>
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar" style="height: 90%;" data-value="27L"></div>
+                                <span class="chart-label">Thu</span>
+                            </div>
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar" style="height: 78%;" data-value="23.5L"></div>
+                                <span class="chart-label">Fri</span>
+                            </div>
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar" style="height: 95%;" data-value="28.5L"></div>
+                                <span class="chart-label">Sat</span>
+                            </div>
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar" style="height: 60%;" data-value="18L"></div>
+                                <span class="chart-label">Sun</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-light);">
+                        <div>
+                            <div style="font-size: 12px; color: var(--text-light);">Lowest</div>
+                            <div style="font-size: 15px; font-weight: 600;">18L (Sun)</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 12px; color: var(--text-light);">Highest</div>
+                            <div style="font-size: 15px; font-weight: 600;">28.5L (Sat)</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 12px; color: var(--text-light);">Total</div>
+                            <div style="font-size: 15px; font-weight: 600;">163.8L</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Egg Production (Placeholder for Cow context) -->
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+                    Production Metrics
+                </div>
+                <div class="info-card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Daily Milk Record</span>
+                            <span class="info-value" style="color: var(--primary-green);">24.5 L</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Monthly Total</span>
+                            <span class="info-value">712 L</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Lactation Day</span>
+                            <span class="info-value">127</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Peak Yield</span>
+                            <span class="info-value">32 L</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Efficiency Metrics -->
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                    Efficiency Metrics
+                </div>
+                <div class="info-card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Feed Conversion</span>
+                            <span class="info-value">1.4 kg/L</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Water Ratio</span>
+                            <span class="info-value">2.1 L/kg</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Efficiency Score</span>
+                            <span class="info-value" style="color: var(--primary-green);">85%</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Quality Grade</span>
+                            <span class="info-value">A+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-btn" id="vaccinationBtn">
+                <div class="action-btn-icon vaccination">
+                    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                </div>
+                <span class="action-btn-label">Record Vaccination</span>
+            </button>
+            <button class="action-btn" id="illnessBtn">
+                <div class="action-btn-icon illness">
+                    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+                </div>
+                <span class="action-btn-label">Log Illness</span>
+            </button>
+            <button class="action-btn" id="weightBtn">
+                <div class="action-btn-icon weight">
+                    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 3L4 9v12h16V9l-8-6zm0 14c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm6-6h-4v-2h4v2z"/></svg>
+                </div>
+                <span class="action-btn-label">Update Weight</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button class="fab" id="fabBtn" aria-label="Quick actions">
+            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        </button>
+        <div class="fab-menu">
+            <div class="fab-menu-item" data-action="milk">
+                <div class="fab-menu-icon" style="background: var(--primary-green-light);">
+                    <svg viewBox="0 0 24 24" style="fill: var(--primary-green);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                </div>
+                <span class="fab-menu-label">Record Milk</span>
+            </div>
+            <div class="fab-menu-item" data-action="feed">
+                <div class="fab-menu-icon" style="background: #FFF3E0;">
+                    <svg viewBox="0 0 24 24" style="fill: #FF9800;"><path d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05l-5 2v16.94zm-4.92-3.84L12.94 20H8l-4 4-4-4h-1.5l.75-1.5-2.25-2.25-4.5 4.5L1 18.5l4.5-4.5L7 15.5l-1.5 1.5H8l4 4 4-4h.06l1.64-1.64-1.5-1.5-2.25 2.25 4.5 4.5 2.25-2.25-1.5-1.5z"/></svg>
+                </div>
+                <span class="fab-menu-label">Log Feed</span>
+            </div>
+            <div class="fab-menu-item" data-action="notes">
+                <div class="fab-menu-icon" style="background: var(--accent-pink-light);">
+                    <svg viewBox="0 0 24 24" style="fill: var(--accent-pink);"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                </div>
+                <span class="fab-menu-label">Add Note</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Record Vaccination</h2>
+                <button class="modal-close" id="modalClose">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+            <form id="modalForm">
+                <div class="form-group">
+                    <label class="form-label">Vaccine Name</label>
+                    <input type="text" class="form-input" placeholder="Enter vaccine name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Batch Number (Optional)</label>
+                    <input type="text" class="form-input" placeholder="Enter batch number">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Veterinarian</label>
+                    <input type="text" class="form-input" placeholder="Enter veterinarian name">
+                </div>
+                <button type="submit" class="submit-btn">Save Record</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">Record saved successfully!</div>
+
+    <script>
+        // Tab Navigation
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.dataset.tab;
+
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Floating Action Button
+        const fabBtn = document.getElementById('fabBtn');
+        const fabMenu = document.querySelector('.fab-menu');
+
+        fabBtn.addEventListener('click', () => {
+            fabBtn.classList.toggle('active');
+        });
+
+        // Close FAB when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.fab-container')) {
+                fabBtn.classList.remove('active');
+            }
+        });
+
+        // FAB Menu Actions
+        const fabMenuItems = document.querySelectorAll('.fab-menu-item');
+        fabMenuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const action = item.dataset.action;
+                fabBtn.classList.remove('active');
+                showToast(`${action.charAt(0).toUpperCase() + action.slice(1)} recording opened`);
+            });
+        });
+
+        // Modal
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalClose = document.getElementById('modalClose');
+        const modalForm = document.getElementById('modalForm');
+
+        function openModal(title) {
+            modalTitle.textContent = title;
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // Action Buttons
+        document.getElementById('vaccinationBtn').addEventListener('click', () => openModal('Record Vaccination'));
+        document.getElementById('illnessBtn').addEventListener('click', () => openModal('Log Illness'));
+        document.getElementById('weightBtn').addEventListener('click', () => openModal('Update Weight'));
+
+        // Form Submit
+        modalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            closeModal();
+            showToast(`${modalTitle.textContent} saved successfully!`);
+            modalForm.reset();
+        });
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Back Button
+        document.querySelector('.back-btn').addEventListener('click', () => {
+            showToast('Navigating back...');
+        });
+
+        // Animate chart bars on production tab click
+        const productionTab = document.querySelector('[data-tab="production"]');
+        const chartBars = document.querySelectorAll('.chart-bar');
+
+        productionTab.addEventListener('click', () => {
+            chartBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.transform = 'scaleY(1)';
+                }, index * 100);
+            });
+        });
+
+        // Initialize chart bars with animation
+        setTimeout(() => {
+            chartBars.forEach((bar, index) => {
+                const height = bar.style.height;
+                bar.style.height = '0';
+                setTimeout(() => {
+                    bar.style.height = height;
+                }, index * 100);
+            });
+        }, 500);
+    </script>
+</body>
+</html>

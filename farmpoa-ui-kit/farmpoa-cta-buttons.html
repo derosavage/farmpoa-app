@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmpoa - CTA Buttons</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2E7D32;
+      font-size: 28px;
+      margin-bottom: 50px;
+      font-weight: 700;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+
+    /* Primary CTA - Tropical Sunset Gradient */
+    .cta-primary {
+      position: relative;
+      padding: 18px 48px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #FF007F 0%, #FF6F61 50%, #FFE082 100%);
+      box-shadow: 0 8px 30px rgba(255, 0, 127, 0.4);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .cta-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(255, 0, 127, 0.5);
+    }
+
+    .cta-primary:hover::before {
+      left: 100%;
+    }
+
+    .cta-primary:active {
+      transform: translateY(-1px);
+    }
+
+    /* Secondary CTA */
+    .cta-secondary {
+      padding: 16px 40px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #E91E63;
+      background: #fff;
+      border: 2px solid #E91E63;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.1);
+    }
+
+    .cta-secondary:hover {
+      background: linear-gradient(135deg, #E91E63 0%, #F48FB1 100%);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+    }
+
+    /* Success CTA */
+    .cta-success {
+      padding: 16px 40px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+
+    .cta-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(76, 175, 80, 0.5);
+    }
+
+    /* Outline CTA */
+    .cta-outline {
+      padding: 14px 36px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      background: transparent;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cta-outline:hover {
+      border-color: #4CAF50;
+      color: #4CAF50;
+      background: rgba(76, 175, 80, 0.05);
+    }
+
+    /* Icon CTAs */
+    .cta-icon {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #E91E63 0%, #F48FB1 100%);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+    }
+
+    .cta-icon:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+    }
+
+    .cta-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Pill CTA */
+    .cta-pill {
+      padding: 12px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #FF6F61 0%, #FFE082 100%);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 111, 97, 0.4);
+    }
+
+    .cta-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 111, 97, 0.5);
+    }
+
+    /* Large CTA */
+    .cta-large {
+      padding: 22px 56px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #FF007F 0%, #E91E63 50%, #FF6F61 100%);
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 35px rgba(255, 0, 127, 0.4);
+      letter-spacing: 0.5px;
+    }
+
+    .cta-large:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 45px rgba(255, 0, 127, 0.5);
+    }
+
+    .label {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .button-wrapper {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Farmpoa CTA Buttons</h1>
+
+    <div class="button-group">
+      <div class="button-wrapper">
+        <button class="cta-large">Get Started Free</button>
+        <p class="label">Large CTA</p>
+      </div>
+
+      <div class="button-wrapper">
+        <button class="cta-primary">Start Your Free Trial</button>
+        <p class="label">Primary CTA - Tropical Sunset</p>
+      </div>
+
+      <div class="button-wrapper">
+        <button class="cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          Contact Veterinarian
+        </button>
+        <p class="label">Icon CTA</p>
+      </div>
+
+      <div class="button-wrapper">
+        <button class="cta-success">Record Vaccination ✓</button>
+        <p class="label">Success CTA</p>
+      </div>
+
+      <div class="button-wrapper">
+        <button class="cta-secondary">Watch Demo</button>
+        <p class="label">Secondary CTA</p>
+      </div>
+
+      <div class="button-wrapper">
+        <button class="cta-pill">Learn More</button>
+        <p class="label">Pill CTA</p>
+      </div>
+
+      <div class="button-wrapper">
+        <button class="cta-outline">Skip for Now</button>
+        <p class="label">Outline CTA</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
