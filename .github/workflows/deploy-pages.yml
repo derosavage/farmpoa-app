@@ -32,8 +32,6 @@ jobs:
         run: |
           mkdir -p _site
           cp -r farmpoa-ui-kit/* _site/
-          # Create index.html that redirects to dashboard
-          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=farmpoa-web-dashboard.html"></head></html>' > _site/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
