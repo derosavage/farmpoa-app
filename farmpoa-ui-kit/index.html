@@ -19,14 +19,10 @@
             --text-secondary: #6B7280;
             --text-muted: #9CA3AF;
             --border: #E5E7EB;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
-            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 10px 10px -5px rgba(0,0,0,0.03);
-            --radius-sm: 8px;
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08);
             --radius-md: 12px;
             --radius-lg: 16px;
-            --radius-xl: 24px;
         }
 
         * {
@@ -39,11 +35,8 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.5;
-            min-height: 100vh;
         }
 
-        /* Layout */
         .app-container {
             display: flex;
             min-height: 100vh;
@@ -58,8 +51,6 @@
             flex-direction: column;
             position: fixed;
             height: 100vh;
-            z-index: 100;
-            transition: transform 0.3s ease;
             overflow-y: auto;
         }
 
@@ -72,7 +63,6 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            cursor: pointer;
         }
 
         .logo-icon {
@@ -88,7 +78,6 @@
         .logo-text {
             font-size: 22px;
             font-weight: 700;
-            color: var(--text-primary);
         }
 
         .logo-text span {
@@ -108,7 +97,6 @@
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             color: var(--text-muted);
             padding: 0 12px;
             margin-bottom: 8px;
@@ -121,15 +109,13 @@
             padding: 12px;
             border-radius: var(--radius-md);
             color: var(--text-secondary);
-            text-decoration: none;
+            background: none;
+            border: none;
             font-size: 14px;
             font-weight: 500;
-            transition: all 0.2s ease;
             cursor: pointer;
-            border: none;
-            background: none;
             width: 100%;
-            text-align: left;
+            transition: all 0.2s ease;
         }
 
         .nav-item:hover {
@@ -140,155 +126,39 @@
         .nav-item.active {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            box-shadow: var(--shadow-md);
         }
 
         .nav-item svg {
             width: 20px;
             height: 20px;
-            flex-shrink: 0;
-        }
-
-        .sidebar-footer {
-            padding: 16px;
-            border-top: 1px solid var(--border);
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-radius: var(--radius-md);
-            background: var(--bg-primary);
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .user-info {
-            flex: 1;
-        }
-
-        .user-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .user-role {
-            font-size: 12px;
-            color: var(--text-muted);
         }
 
         /* Main Content */
         .main-content {
             flex: 1;
             margin-left: 260px;
-            min-height: 100vh;
         }
 
-        /* Header */
         .header {
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border);
             padding: 16px 32px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 24px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
         }
 
-        .search-bar {
-            flex: 1;
-            max-width: 480px;
-            position: relative;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 10px 16px 10px 44px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            font-size: 14px;
-            background: var(--bg-primary);
-            transition: all 0.2s ease;
-        }
-
-        .search-bar input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
-
-        .search-bar svg {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 18px;
-            height: 18px;
-            color: var(--text-muted);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .header-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-md);
-            border: none;
-            background: var(--bg-primary);
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .header-btn:hover {
-            background: var(--border);
-            color: var(--text-primary);
-        }
-
-        .header-btn svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Dashboard Content */
         .dashboard-content {
             padding: 32px;
         }
 
         .dashboard-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             margin-bottom: 32px;
         }
 
         .dashboard-title h1 {
             font-size: 28px;
             font-weight: 700;
-            color: var(--text-primary);
             margin-bottom: 4px;
         }
 
@@ -297,225 +167,46 @@
             font-size: 14px;
         }
 
-        .dashboard-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-        }
-
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            box-shadow: var(--shadow-md);
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
-        .btn-secondary {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
+        .page {
+            display: none;
         }
 
-        .btn-secondary:hover {
-            background: var(--bg-primary);
-        }
-
-        .btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Metrics Grid */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            margin-bottom: 32px;
+        .page.active {
+            display: block;
         }
 
         .metric-card {
             background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
             padding: 24px;
+            border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
+            margin-bottom: 16px;
         }
 
         .metric-value {
             font-size: 32px;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
 
         .metric-label {
-            font-size: 14px;
             color: var(--text-secondary);
-        }
-
-        /* Page Sections */
-        .page-section {
-            display: none;
-        }
-
-        .page-section.active {
-            display: block;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: var(--bg-secondary);
-            padding: 32px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-xl);
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
             font-size: 14px;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
-
-        .alert {
-            padding: 12px 16px;
-            border-radius: var(--radius-md);
-            margin-bottom: 16px;
-        }
-
-        .alert-success {
-            background: rgba(76, 175, 80, 0.1);
-            color: var(--primary);
-            border: 1px solid var(--primary-light);
-        }
-
-        .alert-error {
-            background: rgba(244, 67, 54, 0.1);
-            color: #F44336;
-            border: 1px solid rgba(244, 67, 54, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
-            }
-
-            .main-content {
-                margin-left: 200px;
-            }
-
-            .metrics-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .header {
-                padding: 16px;
-            }
-
-            .dashboard-content {
-                padding: 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .sidebar {
-                position: absolute;
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .metrics-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -524,511 +215,186 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <div class="logo" onclick="app.navigateTo('dashboard')">
-                    <div class="logo-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="logo-text">Farm<span>POA</span></div>
-                    </div>
+                <div class="logo">
+                    <div class="logo-icon">🌾</div>
+                    <div class="logo-text">Farm<span>POA</span></div>
                 </div>
             </div>
 
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <div class="nav-section-title">Main</div>
-                    <button class="nav-item active" data-page="dashboard" onclick="app.navigateTo('dashboard')">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4-2h2v20h-2zm4 4h2v16h-2z"/></svg>
-                        Dashboard
-                    </button>
-                    <button class="nav-item" data-page="animals" onclick="app.navigateTo('animals')">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-1.27 0-2.4.8-2.82 2H4c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h3v2H7v2h10v-2h-2v-2h3c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2h-5.18c-.42-1.2-1.55-2-2.82-2z"/></svg>
-                        Animals
-                    </button>
-                    <button class="nav-item" data-page="health" onclick="app.navigateTo('health')">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 9h-3v3h-2v-3H6v-2h3V7h2v3h3v2z"/></svg>
-                        Health
-                    </button>
-                    <button class="nav-item" data-page="production" onclick="app.navigateTo('production')">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-8v2h8v-2z"/></svg>
-                        Production
-                    </button>
-                </div>
-
-                <div class="nav-section">
-                    <div class="nav-section-title">More</div>
-                    <button class="nav-item" data-page="settings" onclick="app.navigateTo('settings')">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.62l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.48.1.62l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.1.62l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.48-.12-.62l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-                        Settings
-                    </button>
+                    <button class="nav-item active" onclick="showPage('dashboard')">📊 Dashboard</button>
+                    <button class="nav-item" onclick="showPage('animals')">🐄 Animals</button>
+                    <button class="nav-item" onclick="showPage('health')">⚕️ Health</button>
+                    <button class="nav-item" onclick="showPage('production')">📈 Production</button>
+                    <button class="nav-item" onclick="showPage('settings')">⚙️ Settings</button>
                 </div>
             </nav>
-
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <div class="user-avatar">JD</div>
-                    <div class="user-info">
-                        <div class="user-name">John Doe</div>
-                        <div class="user-role">Farmer</div>
-                    </div>
-                </div>
-            </div>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Header -->
             <header class="header">
-                <div class="search-bar">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <input type="text" id="searchInput" placeholder="Search animals, records...">
-                </div>
-                <div class="header-actions">
-                    <button class="header-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-                    </button>
-                </div>
+                <h2 id="pageTitle">Dashboard</h2>
             </header>
 
             <!-- Dashboard Page -->
-            <section id="dashboard" class="page-section active">
+            <div id="dashboard" class="page active">
                 <div class="dashboard-content">
                     <div class="dashboard-header">
                         <div class="dashboard-title">
                             <h1>Dashboard</h1>
-                            <p>Welcome back to your farm management platform</p>
-                        </div>
-                        <div class="dashboard-actions">
-                            <button class="btn btn-primary" onclick="app.openModal('addAnimalModal')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg>
-                                Add Animal
-                            </button>
+                            <p>Welcome to your farm management platform</p>
                         </div>
                     </div>
-
-                    <div class="metrics-grid" id="metricsGrid">
-                        <div class="metric-card">
-                            <div class="metric-value" id="totalAnimals">0</div>
-                            <div class="metric-label">Total Animals</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" id="healthyAnimals">0</div>
-                            <div class="metric-label">Healthy</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" id="needsAttention">0</div>
-                            <div class="metric-label">Needs Attention</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" id="totalProduction">0</div>
-                            <div class="metric-label">Production Today</div>
-                        </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">24</div>
+                        <div class="metric-label">Total Animals</div>
                     </div>
-
-                    <div id="dashboardAlert"></div>
+                    <div class="metric-card">
+                        <div class="metric-value">22</div>
+                        <div class="metric-label">Healthy</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">18.5L</div>
+                        <div class="metric-label">Milk Production Today</div>
+                    </div>
                 </div>
-            </section>
+            </div>
 
             <!-- Animals Page -->
-            <section id="animals" class="page-section">
+            <div id="animals" class="page">
                 <div class="dashboard-content">
                     <div class="dashboard-header">
                         <div class="dashboard-title">
                             <h1>Animals</h1>
                             <p>Manage your livestock</p>
                         </div>
-                        <div class="dashboard-actions">
-                            <button class="btn btn-primary" onclick="app.openModal('addAnimalModal')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg>
-                                New Animal
-                            </button>
-                        </div>
                     </div>
-                    <div id="animalsList" style="color: var(--text-secondary);">Loading animals...</div>
+                    
+                    <div class="metric-card">
+                        <h3>🐄 Maziwa (Dairy Cow)</h3>
+                        <p>Age: 4 years | Weight: 480kg | Status: Healthy ✓</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>🐷 Nguruwe (Pig)</h3>
+                        <p>Age: 2 years | Weight: 120kg | Status: Good ✓</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>🐔 Kuku (Chicken)</h3>
+                        <p>Age: 1.5 years | Weight: 2.5kg | Status: Healthy ✓</p>
+                    </div>
                 </div>
-            </section>
+            </div>
 
             <!-- Health Page -->
-            <section id="health" class="page-section">
+            <div id="health" class="page">
                 <div class="dashboard-content">
                     <div class="dashboard-header">
                         <div class="dashboard-title">
                             <h1>Health Records</h1>
                             <p>Track animal health and vaccinations</p>
                         </div>
-                        <div class="dashboard-actions">
-                            <button class="btn btn-primary" onclick="app.openModal('healthAlertModal')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg>
-                                Log Health Event
-                            </button>
-                        </div>
                     </div>
-                    <div id="healthList" style="color: var(--text-secondary);">No health records yet</div>
+                    
+                    <div class="metric-card">
+                        <h3>📋 Vaccination Due - Maziwa</h3>
+                        <p>Type: Brucellosis | Date: Tomorrow | Status: Pending</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>✓ Checkup Completed - Kuku</h3>
+                        <p>Type: Annual Checkup | Date: Today | Status: Healthy</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>⚠️ Monitor - Nguruwe</h3>
+                        <p>Type: Weight Check | Date: 3 days | Status: Needs Attention</p>
+                    </div>
                 </div>
-            </section>
+            </div>
 
             <!-- Production Page -->
-            <section id="production" class="page-section">
+            <div id="production" class="page">
                 <div class="dashboard-content">
                     <div class="dashboard-header">
                         <div class="dashboard-title">
-                            <h1>Production</h1>
+                            <h1>Production Logs</h1>
                             <p>Track daily production metrics</p>
                         </div>
-                        <div class="dashboard-actions">
-                            <button class="btn btn-primary" onclick="app.openModal('productionModal')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg>
-                                Log Production
-                            </button>
-                        </div>
                     </div>
-                    <div id="productionList" style="color: var(--text-secondary);">No production records yet</div>
+                    
+                    <div class="metric-card">
+                        <h3>🥛 Milk - Maziwa</h3>
+                        <p>Today: 18.5L | Weekly Avg: 16.2L | Status: Above Target ✓</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>🥚 Eggs - Kuku</h3>
+                        <p>Today: 12 eggs | Weekly Avg: 10.5 | Status: Good ✓</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>📊 Production Summary</h3>
+                        <p>Total Output: 42 units | Target: 40 units | Progress: 105% ✓</p>
+                    </div>
                 </div>
-            </section>
+            </div>
 
             <!-- Settings Page -->
-            <section id="settings" class="page-section">
+            <div id="settings" class="page">
                 <div class="dashboard-content">
                     <div class="dashboard-header">
                         <div class="dashboard-title">
                             <h1>Settings</h1>
-                            <p>Manage your farm and account settings</p>
+                            <p>Manage your account and preferences</p>
                         </div>
                     </div>
-                    <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.07);">
-                        <h3 style="margin-bottom: 16px; font-weight: 600;">API Configuration</h3>
-                        <div style="margin-bottom: 16px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Backend API URL</label>
-                            <input type="text" id="apiUrl" placeholder="http://localhost:3000" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px;">
-                        </div>
-                        <button class="btn btn-primary" onclick="app.saveSettings()">Save Settings</button>
+                    
+                    <div class="metric-card">
+                        <h3>👤 Account Information</h3>
+                        <p>Name: John Doe</p>
+                        <p>Email: john@farmpoa.com</p>
+                        <p>Farm: Kiprotich's Farm</p>
                     </div>
+                    <div class="metric-card">
+                        <h3>🔐 Preferences</h3>
+                        <p>Language: English</p>
+                        <p>Timezone: Africa/Nairobi</p>
+                        <p>Notifications: Enabled</p>
+                    </div>
+                    <button class="btn-primary">Save Changes</button>
                 </div>
-            </section>
+            </div>
         </main>
     </div>
 
-    <!-- Add Animal Modal -->
-    <div id="addAnimalModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span>Add New Animal</span>
-                <button class="modal-close" onclick="app.closeModal('addAnimalModal')">&times;</button>
-            </div>
-            <form onsubmit="app.handleAddAnimal(event)">
-                <div class="form-group">
-                    <label>Animal Name</label>
-                    <input type="text" id="animalName" required>
-                </div>
-                <div class="form-group">
-                    <label>Species</label>
-                    <select id="animalSpecies" required>
-                        <option value="">Select Species</option>
-                        <option value="cow">Cow</option>
-                        <option value="pig">Pig</option>
-                        <option value="chicken">Chicken</option>
-                        <option value="goat">Goat</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Age (years)</label>
-                    <input type="number" id="animalAge" min="0" step="0.1" required>
-                </div>
-                <div class="form-group">
-                    <label>Weight (kg)</label>
-                    <input type="number" id="animalWeight" min="0" step="0.1" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Add Animal</button>
-            </form>
-            <div id="addAnimalAlert"></div>
-        </div>
-    </div>
-
-    <!-- Health Alert Modal -->
-    <div id="healthAlertModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span>Log Health Event</span>
-                <button class="modal-close" onclick="app.closeModal('healthAlertModal')">&times;</button>
-            </div>
-            <form onsubmit="app.handleHealthAlert(event)">
-                <div class="form-group">
-                    <label>Animal</label>
-                    <select id="healthAnimal" required></select>
-                </div>
-                <div class="form-group">
-                    <label>Event Type</label>
-                    <select id="healthEventType" required>
-                        <option value="">Select Type</option>
-                        <option value="vaccination">Vaccination</option>
-                        <option value="illness">Illness</option>
-                        <option value="checkup">Checkup</option>
-                        <option value="treatment">Treatment</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Notes</label>
-                    <textarea id="healthNotes" rows="4"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Log Event</button>
-            </form>
-            <div id="healthAlertAlert"></div>
-        </div>
-    </div>
-
-    <!-- Production Modal -->
-    <div id="productionModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span>Log Production</span>
-                <button class="modal-close" onclick="app.closeModal('productionModal')">&times;</button>
-            </div>
-            <form onsubmit="app.handleProduction(event)">
-                <div class="form-group">
-                    <label>Animal</label>
-                    <select id="productionAnimal" required></select>
-                </div>
-                <div class="form-group">
-                    <label>Product Type</label>
-                    <select id="productType" required>
-                        <option value="">Select Type</option>
-                        <option value="milk">Milk (Liters)</option>
-                        <option value="eggs">Eggs (Units)</option>
-                        <option value="meat">Meat (kg)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Quantity</label>
-                    <input type="number" id="productQuantity" min="0" step="0.1" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Log Production</button>
-            </form>
-            <div id="productionAlert"></div>
-        </div>
-    </div>
-
     <script>
-        // App state and methods
-        const app = {
-            apiUrl: localStorage.getItem('apiUrl') || 'http://localhost:3000',
-            currentUser: { id: '1', name: 'John Doe' },
-            animals: [],
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
 
-            // Initialize app
-            init() {
-                document.getElementById('apiUrl').value = this.apiUrl;
-                this.loadDashboard();
-            },
+            // Remove active from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
 
-            // Navigate to page
-            navigateTo(pageName) {
-                console.log('Navigating to:', pageName);
-                
-                // Hide all sections
-                document.querySelectorAll('.page-section').forEach(el => {
-                    el.classList.remove('active');
-                });
-                
-                // Show target section
-                const targetSection = document.getElementById(pageName);
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                }
-                
-                // Update nav items
-                document.querySelectorAll('.nav-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                document.querySelector(`[data-page="${pageName}"]`)?.classList.add('active');
-            },
+            // Show selected page
+            document.getElementById(pageName).classList.add('active');
 
-            // Modal management
-            openModal(modalId) {
-                document.getElementById(modalId).classList.add('active');
-                if (modalId === 'healthAlertModal' || modalId === 'productionModal') {
-                    this.loadAnimalSelect(modalId);
-                }
-            },
+            // Highlight clicked nav item
+            event.target.classList.add('active');
 
-            closeModal(modalId) {
-                document.getElementById(modalId).classList.remove('active');
-            },
-
-            // Load animal select
-            async loadAnimalSelect(modalId) {
-                try {
-                    const response = await fetch(`${this.apiUrl}/api/animals`, {
-                        headers: { 'Authorization': `Bearer ${this.currentUser.id}` }
-                    });
-                    this.animals = await response.json();
-                    
-                    const selectId = modalId === 'healthAlertModal' ? 'healthAnimal' : 'productionAnimal';
-                    const select = document.getElementById(selectId);
-                    select.innerHTML = '<option value="">Select Animal</option>';
-                    this.animals.forEach(animal => {
-                        const option = document.createElement('option');
-                        option.value = animal.id;
-                        option.textContent = `${animal.name} (${animal.species})`;
-                        select.appendChild(option);
-                    });
-                } catch (error) {
-                    console.error('Error loading animals:', error);
-                }
-            },
-
-            // Load dashboard
-            async loadDashboard() {
-                try {
-                    const response = await fetch(`${this.apiUrl}/api/animals`, {
-                        headers: { 'Authorization': `Bearer ${this.currentUser.id}` }
-                    });
-                    this.animals = await response.json();
-
-                    document.getElementById('totalAnimals').textContent = this.animals.length;
-                    document.getElementById('healthyAnimals').textContent = this.animals.filter(a => a.health === 'healthy').length;
-                    document.getElementById('needsAttention').textContent = this.animals.filter(a => a.health !== 'healthy').length;
-
-                    this.showAlert('Dashboard loaded', 'success', 'dashboardAlert');
-                } catch (error) {
-                    this.showAlert(`Connect to backend at Settings`, 'error', 'dashboardAlert');
-                }
-            },
-
-            // Add animal
-            async handleAddAnimal(e) {
-                e.preventDefault();
-                try {
-                    const animalData = {
-                        name: document.getElementById('animalName').value,
-                        species: document.getElementById('animalSpecies').value,
-                        age: parseFloat(document.getElementById('animalAge').value),
-                        weight: parseFloat(document.getElementById('animalWeight').value),
-                        farmerId: this.currentUser.id
-                    };
-
-                    const response = await fetch(`${this.apiUrl}/api/animals`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${this.currentUser.id}`
-                        },
-                        body: JSON.stringify(animalData)
-                    });
-
-                    if (response.ok) {
-                        this.showAlert('Animal added!', 'success', 'addAnimalAlert');
-                        setTimeout(() => {
-                            this.closeModal('addAnimalModal');
-                            this.loadDashboard();
-                        }, 1500);
-                    }
-                } catch (error) {
-                    this.showAlert(`Error: ${error.message}`, 'error', 'addAnimalAlert');
-                }
-            },
-
-            // Health alert
-            async handleHealthAlert(e) {
-                e.preventDefault();
-                try {
-                    const healthData = {
-                        animalId: document.getElementById('healthAnimal').value,
-                        eventType: document.getElementById('healthEventType').value,
-                        notes: document.getElementById('healthNotes').value,
-                        farmerId: this.currentUser.id
-                    };
-
-                    const response = await fetch(`${this.apiUrl}/api/health-alerts`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${this.currentUser.id}`
-                        },
-                        body: JSON.stringify(healthData)
-                    });
-
-                    if (response.ok) {
-                        this.showAlert('Health event logged!', 'success', 'healthAlertAlert');
-                        setTimeout(() => this.closeModal('healthAlertModal'), 1500);
-                    }
-                } catch (error) {
-                    this.showAlert(`Error: ${error.message}`, 'error', 'healthAlertAlert');
-                }
-            },
-
-            // Production
-            async handleProduction(e) {
-                e.preventDefault();
-                try {
-                    const productionData = {
-                        animalId: document.getElementById('productionAnimal').value,
-                        productType: document.getElementById('productType').value,
-                        quantity: parseFloat(document.getElementById('productQuantity').value),
-                        farmerId: this.currentUser.id
-                    };
-
-                    const response = await fetch(`${this.apiUrl}/api/production`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${this.currentUser.id}`
-                        },
-                        body: JSON.stringify(productionData)
-                    });
-
-                    if (response.ok) {
-                        this.showAlert('Production logged!', 'success', 'productionAlert');
-                        setTimeout(() => this.closeModal('productionModal'), 1500);
-                    }
-                } catch (error) {
-                    this.showAlert(`Error: ${error.message}`, 'error', 'productionAlert');
-                }
-            },
-
-            // Save settings
-            saveSettings() {
-                this.apiUrl = document.getElementById('apiUrl').value;
-                localStorage.setItem('apiUrl', this.apiUrl);
-                this.showAlert('Settings saved!', 'success', 'settingsAlert');
-            },
-
-            // Show alert
-            showAlert(message, type, elementId) {
-                const alertDiv = document.getElementById(elementId);
-                const alert = document.createElement('div');
-                alert.className = `alert alert-${type}`;
-                alert.textContent = message;
-                alertDiv.prepend(alert);
-                setTimeout(() => alert.remove(), 3000);
-            }
-        };
-
-        // Close modals on outside click
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                e.target.classList.remove('active');
-            }
-        });
-
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', () => app.init());
+            // Update header title
+            const titles = {
+                dashboard: 'Dashboard',
+                animals: 'Animals',
+                health: 'Health Records',
+                production: 'Production',
+                settings: 'Settings'
+            };
+            document.getElementById('pageTitle').textContent = titles[pageName];
+        }
     </script>
 </body>
 </html>
