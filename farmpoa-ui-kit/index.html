@@ -477,12 +477,6 @@
             border: 1px solid rgba(244, 67, 54, 0.3);
         }
 
-        .alert-loading {
-            background: rgba(33, 150, 243, 0.1);
-            color: #2196F3;
-            border: 1px solid rgba(33, 150, 243, 0.3);
-        }
-
         @media (max-width: 768px) {
             .sidebar {
                 width: 200px;
@@ -530,7 +524,7 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <div class="logo" onclick="navigateTo('dashboard')">
+                <div class="logo" onclick="app.navigateTo('dashboard')">
                     <div class="logo-icon">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -545,19 +539,19 @@
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <div class="nav-section-title">Main</div>
-                    <button class="nav-item active" onclick="navigateTo('dashboard')">
+                    <button class="nav-item active" data-page="dashboard" onclick="app.navigateTo('dashboard')">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4-2h2v20h-2zm4 4h2v16h-2z"/></svg>
                         Dashboard
                     </button>
-                    <button class="nav-item" onclick="navigateTo('animals')">
+                    <button class="nav-item" data-page="animals" onclick="app.navigateTo('animals')">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-1.27 0-2.4.8-2.82 2H4c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h3v2H7v2h10v-2h-2v-2h3c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2h-5.18c-.42-1.2-1.55-2-2.82-2z"/></svg>
                         Animals
                     </button>
-                    <button class="nav-item" onclick="navigateTo('health')">
+                    <button class="nav-item" data-page="health" onclick="app.navigateTo('health')">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 9h-3v3h-2v-3H6v-2h3V7h2v3h3v2z"/></svg>
                         Health
                     </button>
-                    <button class="nav-item" onclick="navigateTo('production')">
+                    <button class="nav-item" data-page="production" onclick="app.navigateTo('production')">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-8v2h8v-2z"/></svg>
                         Production
                     </button>
@@ -565,7 +559,7 @@
 
                 <div class="nav-section">
                     <div class="nav-section-title">More</div>
-                    <button class="nav-item" onclick="navigateTo('settings')">
+                    <button class="nav-item" data-page="settings" onclick="app.navigateTo('settings')">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.62l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.48.1.62l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.1.62l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.48-.12-.62l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
                         Settings
                     </button>
@@ -610,7 +604,7 @@
                             <p>Welcome back to your farm management platform</p>
                         </div>
                         <div class="dashboard-actions">
-                            <button class="btn btn-primary" onclick="openModal('addAnimalModal')">
+                            <button class="btn btn-primary" onclick="app.openModal('addAnimalModal')">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -652,7 +646,7 @@
                             <p>Manage your livestock</p>
                         </div>
                         <div class="dashboard-actions">
-                            <button class="btn btn-primary" onclick="openModal('addAnimalModal')">
+                            <button class="btn btn-primary" onclick="app.openModal('addAnimalModal')">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -661,7 +655,7 @@
                             </button>
                         </div>
                     </div>
-                    <div id="animalsList"></div>
+                    <div id="animalsList" style="color: var(--text-secondary);">Loading animals...</div>
                 </div>
             </section>
 
@@ -674,7 +668,7 @@
                             <p>Track animal health and vaccinations</p>
                         </div>
                         <div class="dashboard-actions">
-                            <button class="btn btn-primary" onclick="openModal('healthAlertModal')">
+                            <button class="btn btn-primary" onclick="app.openModal('healthAlertModal')">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -683,7 +677,7 @@
                             </button>
                         </div>
                     </div>
-                    <div id="healthList"></div>
+                    <div id="healthList" style="color: var(--text-secondary);">No health records yet</div>
                 </div>
             </section>
 
@@ -696,7 +690,7 @@
                             <p>Track daily production metrics</p>
                         </div>
                         <div class="dashboard-actions">
-                            <button class="btn btn-primary" onclick="openModal('productionModal')">
+                            <button class="btn btn-primary" onclick="app.openModal('productionModal')">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -705,7 +699,7 @@
                             </button>
                         </div>
                     </div>
-                    <div id="productionList"></div>
+                    <div id="productionList" style="color: var(--text-secondary);">No production records yet</div>
                 </div>
             </section>
 
@@ -724,7 +718,7 @@
                             <label style="display: block; margin-bottom: 8px; font-weight: 500;">Backend API URL</label>
                             <input type="text" id="apiUrl" placeholder="http://localhost:3000" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px;">
                         </div>
-                        <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                        <button class="btn btn-primary" onclick="app.saveSettings()">Save Settings</button>
                     </div>
                 </div>
             </section>
@@ -736,9 +730,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span>Add New Animal</span>
-                <button class="modal-close" onclick="closeModal('addAnimalModal')">&times;</button>
+                <button class="modal-close" onclick="app.closeModal('addAnimalModal')">&times;</button>
             </div>
-            <form onsubmit="handleAddAnimal(event)">
+            <form onsubmit="app.handleAddAnimal(event)">
                 <div class="form-group">
                     <label>Animal Name</label>
                     <input type="text" id="animalName" required>
@@ -772,9 +766,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span>Log Health Event</span>
-                <button class="modal-close" onclick="closeModal('healthAlertModal')">&times;</button>
+                <button class="modal-close" onclick="app.closeModal('healthAlertModal')">&times;</button>
             </div>
-            <form onsubmit="handleHealthAlert(event)">
+            <form onsubmit="app.handleHealthAlert(event)">
                 <div class="form-group">
                     <label>Animal</label>
                     <select id="healthAnimal" required></select>
@@ -804,9 +798,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span>Log Production</span>
-                <button class="modal-close" onclick="closeModal('productionModal')">&times;</button>
+                <button class="modal-close" onclick="app.closeModal('productionModal')">&times;</button>
             </div>
-            <form onsubmit="handleProduction(event)">
+            <form onsubmit="app.handleProduction(event)">
                 <div class="form-group">
                     <label>Animal</label>
                     <select id="productionAnimal" required></select>
@@ -831,193 +825,200 @@
     </div>
 
     <script>
-        // Configuration
-        let apiUrl = localStorage.getItem('apiUrl') || 'http://localhost:3000';
-        let currentUser = { id: '1', name: 'John Doe' };
-        let animals = [];
+        // App state and methods
+        const app = {
+            apiUrl: localStorage.getItem('apiUrl') || 'http://localhost:3000',
+            currentUser: { id: '1', name: 'John Doe' },
+            animals: [],
 
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('apiUrl').value = apiUrl;
-            loadDashboard();
-        });
+            // Initialize app
+            init() {
+                document.getElementById('apiUrl').value = this.apiUrl;
+                this.loadDashboard();
+            },
 
-        // Navigation
-        function navigateTo(page) {
-            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-            document.getElementById(page).classList.add('active');
-
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            event.target.closest('.nav-item')?.classList.add('active');
-        }
-
-        // Modal management
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-            if (modalId === 'healthAlertModal' || modalId === 'productionModal') {
-                loadAnimalSelect(modalId);
-            }
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        // Load animal select options
-        async function loadAnimalSelect(modalId) {
-            try {
-                const response = await fetch(`${apiUrl}/api/animals`, {
-                    headers: { 'Authorization': `Bearer ${currentUser.id}` }
-                });
-                animals = await response.json();
+            // Navigate to page
+            navigateTo(pageName) {
+                console.log('Navigating to:', pageName);
                 
-                const selectId = modalId === 'healthAlertModal' ? 'healthAnimal' : 'productionAnimal';
-                const select = document.getElementById(selectId);
-                select.innerHTML = '<option value="">Select Animal</option>';
-                animals.forEach(animal => {
-                    const option = document.createElement('option');
-                    option.value = animal.id;
-                    option.textContent = `${animal.name} (${animal.species})`;
-                    select.appendChild(option);
+                // Hide all sections
+                document.querySelectorAll('.page-section').forEach(el => {
+                    el.classList.remove('active');
                 });
-            } catch (error) {
-                console.error('Error loading animals:', error);
-            }
-        }
-
-        // Load dashboard
-        async function loadDashboard() {
-            try {
-                const response = await fetch(`${apiUrl}/api/animals`, {
-                    headers: { 'Authorization': `Bearer ${currentUser.id}` }
-                });
-                animals = await response.json();
-
-                // Update metrics
-                document.getElementById('totalAnimals').textContent = animals.length;
-                document.getElementById('healthyAnimals').textContent = animals.filter(a => a.health === 'healthy').length;
-                document.getElementById('needsAttention').textContent = animals.filter(a => a.health !== 'healthy').length;
-
-                showAlert('Dashboard loaded successfully', 'success', 'dashboardAlert');
-            } catch (error) {
-                showAlert(`Error connecting to backend: ${error.message}. Make sure your API is running at ${apiUrl}`, 'error', 'dashboardAlert');
-            }
-        }
-
-        // Add animal
-        async function handleAddAnimal(e) {
-            e.preventDefault();
-            const alertDiv = document.getElementById('addAnimalAlert');
-
-            try {
-                const animalData = {
-                    name: document.getElementById('animalName').value,
-                    species: document.getElementById('animalSpecies').value,
-                    age: parseFloat(document.getElementById('animalAge').value),
-                    weight: parseFloat(document.getElementById('animalWeight').value),
-                    farmerId: currentUser.id
-                };
-
-                const response = await fetch(`${apiUrl}/api/animals`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${currentUser.id}`
-                    },
-                    body: JSON.stringify(animalData)
-                });
-
-                if (response.ok) {
-                    showAlert('Animal added successfully!', 'success', 'addAnimalAlert');
-                    setTimeout(() => {
-                        closeModal('addAnimalModal');
-                        loadDashboard();
-                        navigateTo('animals');
-                    }, 1500);
-                } else {
-                    showAlert('Failed to add animal', 'error', 'addAnimalAlert');
+                
+                // Show target section
+                const targetSection = document.getElementById(pageName);
+                if (targetSection) {
+                    targetSection.classList.add('active');
                 }
-            } catch (error) {
-                showAlert(`Error: ${error.message}`, 'error', 'addAnimalAlert');
-            }
-        }
-
-        // Health alert handler
-        async function handleHealthAlert(e) {
-            e.preventDefault();
-            try {
-                const healthData = {
-                    animalId: document.getElementById('healthAnimal').value,
-                    eventType: document.getElementById('healthEventType').value,
-                    notes: document.getElementById('healthNotes').value,
-                    farmerId: currentUser.id,
-                    date: new Date().toISOString()
-                };
-
-                const response = await fetch(`${apiUrl}/api/health-alerts`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${currentUser.id}`
-                    },
-                    body: JSON.stringify(healthData)
+                
+                // Update nav items
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
                 });
+                document.querySelector(`[data-page="${pageName}"]`)?.classList.add('active');
+            },
 
-                if (response.ok) {
-                    showAlert('Health event logged successfully!', 'success', 'healthAlertAlert');
-                    setTimeout(() => closeModal('healthAlertModal'), 1500);
+            // Modal management
+            openModal(modalId) {
+                document.getElementById(modalId).classList.add('active');
+                if (modalId === 'healthAlertModal' || modalId === 'productionModal') {
+                    this.loadAnimalSelect(modalId);
                 }
-            } catch (error) {
-                showAlert(`Error: ${error.message}`, 'error', 'healthAlertAlert');
-            }
-        }
+            },
 
-        // Production handler
-        async function handleProduction(e) {
-            e.preventDefault();
-            try {
-                const productionData = {
-                    animalId: document.getElementById('productionAnimal').value,
-                    productType: document.getElementById('productType').value,
-                    quantity: parseFloat(document.getElementById('productQuantity').value),
-                    farmerId: currentUser.id,
-                    date: new Date().toISOString()
-                };
+            closeModal(modalId) {
+                document.getElementById(modalId).classList.remove('active');
+            },
 
-                const response = await fetch(`${apiUrl}/api/production`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${currentUser.id}`
-                    },
-                    body: JSON.stringify(productionData)
-                });
-
-                if (response.ok) {
-                    showAlert('Production logged successfully!', 'success', 'productionAlert');
-                    setTimeout(() => closeModal('productionModal'), 1500);
+            // Load animal select
+            async loadAnimalSelect(modalId) {
+                try {
+                    const response = await fetch(`${this.apiUrl}/api/animals`, {
+                        headers: { 'Authorization': `Bearer ${this.currentUser.id}` }
+                    });
+                    this.animals = await response.json();
+                    
+                    const selectId = modalId === 'healthAlertModal' ? 'healthAnimal' : 'productionAnimal';
+                    const select = document.getElementById(selectId);
+                    select.innerHTML = '<option value="">Select Animal</option>';
+                    this.animals.forEach(animal => {
+                        const option = document.createElement('option');
+                        option.value = animal.id;
+                        option.textContent = `${animal.name} (${animal.species})`;
+                        select.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('Error loading animals:', error);
                 }
-            } catch (error) {
-                showAlert(`Error: ${error.message}`, 'error', 'productionAlert');
+            },
+
+            // Load dashboard
+            async loadDashboard() {
+                try {
+                    const response = await fetch(`${this.apiUrl}/api/animals`, {
+                        headers: { 'Authorization': `Bearer ${this.currentUser.id}` }
+                    });
+                    this.animals = await response.json();
+
+                    document.getElementById('totalAnimals').textContent = this.animals.length;
+                    document.getElementById('healthyAnimals').textContent = this.animals.filter(a => a.health === 'healthy').length;
+                    document.getElementById('needsAttention').textContent = this.animals.filter(a => a.health !== 'healthy').length;
+
+                    this.showAlert('Dashboard loaded', 'success', 'dashboardAlert');
+                } catch (error) {
+                    this.showAlert(`Connect to backend at Settings`, 'error', 'dashboardAlert');
+                }
+            },
+
+            // Add animal
+            async handleAddAnimal(e) {
+                e.preventDefault();
+                try {
+                    const animalData = {
+                        name: document.getElementById('animalName').value,
+                        species: document.getElementById('animalSpecies').value,
+                        age: parseFloat(document.getElementById('animalAge').value),
+                        weight: parseFloat(document.getElementById('animalWeight').value),
+                        farmerId: this.currentUser.id
+                    };
+
+                    const response = await fetch(`${this.apiUrl}/api/animals`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.currentUser.id}`
+                        },
+                        body: JSON.stringify(animalData)
+                    });
+
+                    if (response.ok) {
+                        this.showAlert('Animal added!', 'success', 'addAnimalAlert');
+                        setTimeout(() => {
+                            this.closeModal('addAnimalModal');
+                            this.loadDashboard();
+                        }, 1500);
+                    }
+                } catch (error) {
+                    this.showAlert(`Error: ${error.message}`, 'error', 'addAnimalAlert');
+                }
+            },
+
+            // Health alert
+            async handleHealthAlert(e) {
+                e.preventDefault();
+                try {
+                    const healthData = {
+                        animalId: document.getElementById('healthAnimal').value,
+                        eventType: document.getElementById('healthEventType').value,
+                        notes: document.getElementById('healthNotes').value,
+                        farmerId: this.currentUser.id
+                    };
+
+                    const response = await fetch(`${this.apiUrl}/api/health-alerts`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.currentUser.id}`
+                        },
+                        body: JSON.stringify(healthData)
+                    });
+
+                    if (response.ok) {
+                        this.showAlert('Health event logged!', 'success', 'healthAlertAlert');
+                        setTimeout(() => this.closeModal('healthAlertModal'), 1500);
+                    }
+                } catch (error) {
+                    this.showAlert(`Error: ${error.message}`, 'error', 'healthAlertAlert');
+                }
+            },
+
+            // Production
+            async handleProduction(e) {
+                e.preventDefault();
+                try {
+                    const productionData = {
+                        animalId: document.getElementById('productionAnimal').value,
+                        productType: document.getElementById('productType').value,
+                        quantity: parseFloat(document.getElementById('productQuantity').value),
+                        farmerId: this.currentUser.id
+                    };
+
+                    const response = await fetch(`${this.apiUrl}/api/production`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.currentUser.id}`
+                        },
+                        body: JSON.stringify(productionData)
+                    });
+
+                    if (response.ok) {
+                        this.showAlert('Production logged!', 'success', 'productionAlert');
+                        setTimeout(() => this.closeModal('productionModal'), 1500);
+                    }
+                } catch (error) {
+                    this.showAlert(`Error: ${error.message}`, 'error', 'productionAlert');
+                }
+            },
+
+            // Save settings
+            saveSettings() {
+                this.apiUrl = document.getElementById('apiUrl').value;
+                localStorage.setItem('apiUrl', this.apiUrl);
+                this.showAlert('Settings saved!', 'success', 'settingsAlert');
+            },
+
+            // Show alert
+            showAlert(message, type, elementId) {
+                const alertDiv = document.getElementById(elementId);
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.textContent = message;
+                alertDiv.prepend(alert);
+                setTimeout(() => alert.remove(), 3000);
             }
-        }
-
-        // Save settings
-        function saveSettings() {
-            apiUrl = document.getElementById('apiUrl').value;
-            localStorage.setItem('apiUrl', apiUrl);
-            showAlert('Settings saved! API URL updated.', 'success', 'settingsAlert');
-        }
-
-        // Show alert
-        function showAlert(message, type, elementId) {
-            const alertDiv = document.getElementById(elementId) || document.querySelector('.dashboard-content');
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type}`;
-            alert.textContent = message;
-            alertDiv.prepend(alert);
-            setTimeout(() => alert.remove(), 3000);
-        }
+        };
 
         // Close modals on outside click
         window.addEventListener('click', (e) => {
@@ -1025,6 +1026,9 @@
                 e.target.classList.remove('active');
             }
         });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => app.init());
     </script>
 </body>
 </html>
