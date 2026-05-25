@@ -63,6 +63,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            cursor: pointer;
         }
 
         .logo-icon {
@@ -73,6 +74,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            font-size: 24px;
         }
 
         .logo-text {
@@ -115,7 +118,9 @@
             font-weight: 500;
             cursor: pointer;
             width: 100%;
+            text-align: left;
             transition: all 0.2s ease;
+            text-decoration: none;
         }
 
         .nav-item:hover {
@@ -126,11 +131,6 @@
         .nav-item.active {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-        }
-
-        .nav-item svg {
-            width: 20px;
-            height: 20px;
         }
 
         /* Main Content */
@@ -167,46 +167,59 @@
             font-size: 14px;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-        }
-
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .metric-card {
+        .page-card {
             background: var(--bg-secondary);
-            padding: 24px;
             border-radius: var(--radius-lg);
+            padding: 24px;
             box-shadow: var(--shadow-md);
-            margin-bottom: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
         }
 
-        .metric-value {
-            font-size: 32px;
-            font-weight: 700;
+        .page-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .page-card h3 {
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: 8px;
         }
 
-        .metric-label {
+        .page-card p {
             color: var(--text-secondary);
             font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .page-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+            }
+
+            .dashboard-content {
+                padding: 16px;
+            }
         }
     </style>
 </head>
@@ -215,7 +228,7 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <div class="logo">
+                <div class="logo" onclick="window.location.href='index.html'">
                     <div class="logo-icon">🌾</div>
                     <div class="logo-text">Farm<span>POA</span></div>
                 </div>
@@ -223,12 +236,15 @@
 
             <nav class="sidebar-nav">
                 <div class="nav-section">
-                    <div class="nav-section-title">Main</div>
-                    <button class="nav-item active" onclick="showPage('dashboard')">📊 Dashboard</button>
-                    <button class="nav-item" onclick="showPage('animals')">🐄 Animals</button>
-                    <button class="nav-item" onclick="showPage('health')">⚕️ Health</button>
-                    <button class="nav-item" onclick="showPage('production')">📈 Production</button>
-                    <button class="nav-item" onclick="showPage('settings')">⚙️ Settings</button>
+                    <div class="nav-section-title">Pages</div>
+                    <a href="farmpoa-landing-hero.html" class="nav-item">🚀 Landing</a>
+                    <a href="farmpoa-web-dashboard.html" class="nav-item">📊 Web Dashboard</a>
+                    <a href="farmpoa-mobile-dashboard.html" class="nav-item">📱 Mobile Dashboard</a>
+                    <a href="farmpoa-animal-profile.html" class="nav-item">🐄 Animal Profile</a>
+                    <a href="farmpoa-health-alert.html" class="nav-item">⚕️ Health Alert</a>
+                    <a href="farmpoa-success-screen.html" class="nav-item">✅ Success Screen</a>
+                    <a href="farmpoa-swahili-ui.html" class="nav-item">🌍 Swahili UI</a>
+                    <a href="farmpoa-cta-buttons.html" class="nav-item">🎯 CTA Buttons</a>
                 </div>
             </nav>
         </aside>
@@ -236,165 +252,68 @@
         <!-- Main Content -->
         <main class="main-content">
             <header class="header">
-                <h2 id="pageTitle">Dashboard</h2>
+                <h2>Farmpoa UI Kit Pages</h2>
             </header>
 
-            <!-- Dashboard Page -->
-            <div id="dashboard" class="page active">
-                <div class="dashboard-content">
-                    <div class="dashboard-header">
-                        <div class="dashboard-title">
-                            <h1>Dashboard</h1>
-                            <p>Welcome to your farm management platform</p>
-                        </div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <div class="metric-value">24</div>
-                        <div class="metric-label">Total Animals</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">22</div>
-                        <div class="metric-label">Healthy</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">18.5L</div>
-                        <div class="metric-label">Milk Production Today</div>
+            <div class="dashboard-content">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1>Pages Navigator</h1>
+                        <p>Click any page below or use the sidebar to navigate</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Animals Page -->
-            <div id="animals" class="page">
-                <div class="dashboard-content">
-                    <div class="dashboard-header">
-                        <div class="dashboard-title">
-                            <h1>Animals</h1>
-                            <p>Manage your livestock</p>
-                        </div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h3>🐄 Maziwa (Dairy Cow)</h3>
-                        <p>Age: 4 years | Weight: 480kg | Status: Healthy ✓</p>
-                    </div>
-                    <div class="metric-card">
-                        <h3>🐷 Nguruwe (Pig)</h3>
-                        <p>Age: 2 years | Weight: 120kg | Status: Good ✓</p>
-                    </div>
-                    <div class="metric-card">
-                        <h3>🐔 Kuku (Chicken)</h3>
-                        <p>Age: 1.5 years | Weight: 2.5kg | Status: Healthy ✓</p>
-                    </div>
-                </div>
-            </div>
+                <div class="pages-grid">
+                    <a href="farmpoa-landing-hero.html" class="page-card">
+                        <div class="page-icon">🚀</div>
+                        <h3>Landing Hero</h3>
+                        <p>Beautiful landing page with hero section and call-to-action buttons</p>
+                    </a>
 
-            <!-- Health Page -->
-            <div id="health" class="page">
-                <div class="dashboard-content">
-                    <div class="dashboard-header">
-                        <div class="dashboard-title">
-                            <h1>Health Records</h1>
-                            <p>Track animal health and vaccinations</p>
-                        </div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h3>📋 Vaccination Due - Maziwa</h3>
-                        <p>Type: Brucellosis | Date: Tomorrow | Status: Pending</p>
-                    </div>
-                    <div class="metric-card">
-                        <h3>✓ Checkup Completed - Kuku</h3>
-                        <p>Type: Annual Checkup | Date: Today | Status: Healthy</p>
-                    </div>
-                    <div class="metric-card">
-                        <h3>⚠️ Monitor - Nguruwe</h3>
-                        <p>Type: Weight Check | Date: 3 days | Status: Needs Attention</p>
-                    </div>
-                </div>
-            </div>
+                    <a href="farmpoa-web-dashboard.html" class="page-card">
+                        <div class="page-icon">📊</div>
+                        <h3>Web Dashboard</h3>
+                        <p>Full desktop dashboard with metrics, charts, and farm management tools</p>
+                    </a>
 
-            <!-- Production Page -->
-            <div id="production" class="page">
-                <div class="dashboard-content">
-                    <div class="dashboard-header">
-                        <div class="dashboard-title">
-                            <h1>Production Logs</h1>
-                            <p>Track daily production metrics</p>
-                        </div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h3>🥛 Milk - Maziwa</h3>
-                        <p>Today: 18.5L | Weekly Avg: 16.2L | Status: Above Target ✓</p>
-                    </div>
-                    <div class="metric-card">
-                        <h3>🥚 Eggs - Kuku</h3>
-                        <p>Today: 12 eggs | Weekly Avg: 10.5 | Status: Good ✓</p>
-                    </div>
-                    <div class="metric-card">
-                        <h3>📊 Production Summary</h3>
-                        <p>Total Output: 42 units | Target: 40 units | Progress: 105% ✓</p>
-                    </div>
-                </div>
-            </div>
+                    <a href="farmpoa-mobile-dashboard.html" class="page-card">
+                        <div class="page-icon">📱</div>
+                        <h3>Mobile Dashboard</h3>
+                        <p>Responsive mobile dashboard optimized for smartphone viewing</p>
+                    </a>
 
-            <!-- Settings Page -->
-            <div id="settings" class="page">
-                <div class="dashboard-content">
-                    <div class="dashboard-header">
-                        <div class="dashboard-title">
-                            <h1>Settings</h1>
-                            <p>Manage your account and preferences</p>
-                        </div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h3>👤 Account Information</h3>
-                        <p>Name: John Doe</p>
-                        <p>Email: john@farmpoa.com</p>
-                        <p>Farm: Kiprotich's Farm</p>
-                    </div>
-                    <div class="metric-card">
-                        <h3>🔐 Preferences</h3>
-                        <p>Language: English</p>
-                        <p>Timezone: Africa/Nairobi</p>
-                        <p>Notifications: Enabled</p>
-                    </div>
-                    <button class="btn-primary">Save Changes</button>
+                    <a href="farmpoa-animal-profile.html" class="page-card">
+                        <div class="page-icon">🐄</div>
+                        <h3>Animal Profile</h3>
+                        <p>Detailed animal profile with health history and information</p>
+                    </a>
+
+                    <a href="farmpoa-health-alert.html" class="page-card">
+                        <div class="page-icon">⚕️</div>
+                        <h3>Health Alert</h3>
+                        <p>Health alert system for tracking animal vaccinations and checkups</p>
+                    </a>
+
+                    <a href="farmpoa-success-screen.html" class="page-card">
+                        <div class="page-icon">✅</div>
+                        <h3>Success Screen</h3>
+                        <p>Success confirmation screen for completed actions</p>
+                    </a>
+
+                    <a href="farmpoa-swahili-ui.html" class="page-card">
+                        <div class="page-icon">🌍</div>
+                        <h3>Swahili UI</h3>
+                        <p>User interface in Swahili language for local farmers</p>
+                    </a>
+
+                    <a href="farmpoa-cta-buttons.html" class="page-card">
+                        <div class="page-icon">🎯</div>
+                        <h3>CTA Buttons</h3>
+                        <p>Call-to-action button variations and components</p>
+                    </a>
                 </div>
             </div>
         </main>
     </div>
-
-    <script>
-        function showPage(pageName) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-
-            // Remove active from all nav items
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // Show selected page
-            document.getElementById(pageName).classList.add('active');
-
-            // Highlight clicked nav item
-            event.target.classList.add('active');
-
-            // Update header title
-            const titles = {
-                dashboard: 'Dashboard',
-                animals: 'Animals',
-                health: 'Health Records',
-                production: 'Production',
-                settings: 'Settings'
-            };
-            document.getElementById('pageTitle').textContent = titles[pageName];
-        }
-    </script>
 </body>
 </html>
